@@ -366,7 +366,7 @@ export default function Home() {
                 İşletmeniz için sektöre özel yapay zeka asistanı kurun. Bilgilerinizi girin, paketinizi seçin — gerisini biz halledelim.
               </p>
               <div style={{ display: "flex", gap: 12 }}>
-                <button onClick={() => setPage("home")} style={{ background: "linear-gradient(135deg,#F59E0B,#D97706)", color: "#000", padding: "14px 28px", borderRadius: 11, fontWeight: 700, fontSize: 14, border: "none", cursor: "pointer" }}>Ücretsiz Dene →</button>
+                <button onClick={() => window.open("https://wa.me/905327834244?text=Merhaba%2C%20%C3%BCcretsiz%20demo%20istiyorum", "_blank")} style={{ background: "linear-gradient(135deg,#F59E0B,#D97706)", color: "#000", padding: "14px 28px", borderRadius: 11, fontWeight: 700, fontSize: 14, border: "none", cursor: "pointer" }}>Ücretsiz Dene →</button>
                 <button onClick={() => setPage("faq")} style={{ background: "rgba(255,255,255,0.05)", color: "#fff", padding: "14px 22px", borderRadius: 11, fontWeight: 600, fontSize: 14, border: "1px solid rgba(255,255,255,0.1)", cursor: "pointer" }}>Nasıl Çalışır?</button>
               </div>
               <div style={{ display: "flex", gap: 36, marginTop: 40, paddingTop: 28, borderTop: "1px solid rgba(255,255,255,0.06)" }}>
@@ -544,7 +544,7 @@ export default function Home() {
             <h3 style={{ fontSize: 22, marginBottom: 8 }}>Cevap bulamadınız mı?</h3>
             <p style={{ color: "rgba(255,255,255,0.4)", fontSize: 14, marginBottom: 22 }}>Ekibimiz yardımcı olmaktan memnuniyet duyar.</p>
             <div style={{ display: "flex", gap: 10, justifyContent: "center" }}>
-              <button style={{ padding: "11px 22px", background: "linear-gradient(135deg,#25D366,#128C7E)", color: "#fff", border: "none", borderRadius: 11, fontWeight: 700, fontSize: 13, cursor: "pointer" }}>💬 WhatsApp'tan Yaz</button>
+              <button onClick={() => window.open("https://wa.me/905327834244?text=Merhaba%2C%20bir%20sorum%20var", "_blank")} style={{ padding: "11px 22px", background: "linear-gradient(135deg,#25D366,#128C7E)", color: "#fff", border: "none", borderRadius: 11, fontWeight: 700, fontSize: 13, cursor: "pointer" }}>💬 WhatsApp'tan Yaz</button>
               <button style={{ padding: "11px 20px", background: "rgba(255,255,255,0.05)", color: "#fff", border: "1px solid rgba(255,255,255,0.1)", borderRadius: 11, fontWeight: 600, fontSize: 13, cursor: "pointer" }}>✉️ E-posta Gönder</button>
             </div>
           </div>
@@ -583,6 +583,9 @@ export default function Home() {
       </footer>
 
       {selectedPlan && <Wizard plan={selectedPlan} onClose={() => setSelectedPlan(null)} />}
+
+      {/* WhatsApp Floating Button */}
+      <a href="https://wa.me/905327834244?text=Merhaba%2C%20bilgi%20almak%20istiyorum" target="_blank" rel="noopener noreferrer" style={{ position: "fixed", bottom: 24, right: 24, width: 60, height: 60, background: "linear-gradient(135deg,#25D366,#128C7E)", borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 28, color: "#fff", textDecoration: "none", boxShadow: "0 4px 20px rgba(37,211,102,0.4)", zIndex: 999, transition: "transform 0.3s ease" }} onMouseEnter={e => e.currentTarget.style.transform = "scale(1.1)"} onMouseLeave={e => e.currentTarget.style.transform = "scale(1)"}>💬</a>
     </div>
   );
 }
