@@ -8,12 +8,12 @@ const PLANS = [
 ];
 
 const SECTORS = [
-  { id: "emlak", name: "Emlak", icon: "🏠", desc: "Lead takibi, randevu, portföy" },
-  { id: "saglik", name: "Sağlık", icon: "🏥", desc: "Randevu, hatırlatma, bilgi" },
-  { id: "egitim", name: "Eğitim", icon: "📚", desc: "Kayıt, program, bilgilendirme" },
-  { id: "eticaret", name: "E-Ticaret", icon: "🛒", desc: "Sipariş takibi, ürün bilgisi" },
-  { id: "restoran", name: "Restoran", icon: "🍽️", desc: "Rezervasyon, menü, sipariş" },
-  { id: "otel", name: "Otel", icon: "🏨", desc: "Rezervasyon, concierge" },
+  { id: "emlak", name: "Emlak", icon: "🏠", desc: "Lead takibi, portföy önerisi, görüntüleme randevusu" },
+  { id: "saglik", name: "Diş/Sağlık", icon: "🏥", desc: "Randevu alma, tedavi bilgisi, fiyat sorgulama" },
+  { id: "guzellik", name: "Güzellik", icon: "💇", desc: "Randevu, hizmet bilgisi, fiyat listesi" },
+  { id: "fitness", name: "Fitness", icon: "🏋️", desc: "Üyelik, PT randevusu, ders programı" },
+  { id: "restoran", name: "Restoran", icon: "🍽️", desc: "Rezervasyon, menü, sipariş takibi" },
+  { id: "eticaret", name: "E-Ticaret", icon: "🛒", desc: "Sipariş takibi, ürün bilgisi, iade" },
 ];
 
 const REVIEWS = [
@@ -330,7 +330,7 @@ export default function Home() {
   const [reviewSent, setReviewSent] = useState(false);
   const [rf, setRf] = useState({ name: "", company: "", text: "", rating: 5 });
 
-  const NAV = [{ id: "home", label: "Ana Sayfa" }, { id: "reviews", label: "Referanslar" }, { id: "faq", label: "SSS" }];
+  const NAV = [{ id: "home", label: "Ana Sayfa" }, { id: "demo", label: "Canlı Demo" }, { id: "reviews", label: "Referanslar" }, { id: "blog", label: "Blog" }, { id: "faq", label: "SSS" }, { id: "contact", label: "İletişim" }];
 
   return (
     <div style={{ minHeight: "100vh", background: "#060610", color: "#fff", fontFamily: "system-ui,sans-serif" }}>
@@ -390,6 +390,87 @@ export default function Home() {
             </div>
           </section>
 
+          {/* NASIL ÇALIŞIR */}
+          <section style={{ padding: "70px 24px", maxWidth: 1080, margin: "0 auto" }}>
+            <div style={{ textAlign: "center", marginBottom: 48 }}>
+              <h2 style={{ fontSize: 36, fontWeight: 700, marginBottom: 10 }}>Nasıl <span style={{ color: "#F59E0B" }}>Çalışır?</span></h2>
+              <p style={{ color: "rgba(255,255,255,0.4)", fontSize: 15 }}>3 basit adımda WhatsApp AI asistanınız hazır.</p>
+            </div>
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 24 }}>
+              {[
+                { step: "01", icon: "📋", title: "Bilgilerinizi Girin", desc: "İşletme adı, hizmetler, çalışma saatleri ve sektörünüzü seçin. 2 dakikada tamamlayın." },
+                { step: "02", icon: "📱", title: "WhatsApp'ı Bağlayın", desc: "QR kodu telefonunuzdan okutun. İşletme WhatsApp numaranız anında aktif olsun." },
+                { step: "03", icon: "🚀", title: "Canlıya Alın", desc: "AI asistanınız 7/24 müşterilerinize cevap vermeye başlasın. Siz uyurken bile." },
+              ].map(s => (
+                <div key={s.step} style={{ background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.07)", borderRadius: 20, padding: 28, textAlign: "center", position: "relative" }}>
+                  <div style={{ position: "absolute", top: -14, left: "50%", transform: "translateX(-50%)", background: "linear-gradient(135deg,#F59E0B,#D97706)", color: "#000", width: 28, height: 28, borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 12, fontWeight: 800 }}>{s.step}</div>
+                  <div style={{ fontSize: 36, marginBottom: 14, marginTop: 8 }}>{s.icon}</div>
+                  <h3 style={{ fontSize: 16, fontWeight: 700, marginBottom: 8 }}>{s.title}</h3>
+                  <p style={{ color: "rgba(255,255,255,0.45)", fontSize: 13, lineHeight: 1.7 }}>{s.desc}</p>
+                </div>
+              ))}
+            </div>
+          </section>
+
+          {/* KULLANIM SENARYOLARI */}
+          <section style={{ padding: "70px 24px", maxWidth: 1080, margin: "0 auto" }}>
+            <div style={{ textAlign: "center", marginBottom: 48 }}>
+              <h2 style={{ fontSize: 36, fontWeight: 700, marginBottom: 10 }}>Kullanım <span style={{ color: "#F59E0B" }}>Senaryoları</span></h2>
+              <p style={{ color: "rgba(255,255,255,0.4)", fontSize: 15 }}>Her sektörde gerçek sonuçlar üreten AI asistan.</p>
+            </div>
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(2,1fr)", gap: 16 }}>
+              {[
+                { icon: "🏠", sector: "Emlak", scenario: "Müşteri: \"Kadıköy'de 3+1 arıyorum\"\nAI: Bütçe ve mahalle sorar, portföyden eşleştirir, görüntüleme randevusu oluşturur.", result: "Aylık 40+ yeni lead" },
+                { icon: "🏥", sector: "Diş Kliniği", scenario: "Hasta: \"Diş beyazlatma fiyatı ne?\"\nAI: Fiyat aralığı verir, muayene önerir, randevu oluşturur.", result: "Randevularda %35 artış" },
+                { icon: "💇", sector: "Güzellik Merkezi", scenario: "Müşteri: \"Yarın saç boyama için müsait misiniz?\"\nAI: Uygun saatleri gösterir, personel tercihi sorar, randevu alır.", result: "Boş randevu %60 azaldı" },
+                { icon: "🏋️", sector: "Fitness", scenario: "Müşteri: \"Üyelik fiyatları nedir?\"\nAI: Hedef sorar, uygun paket önerir, deneme dersi teklif eder.", result: "Üyelik dönüşümü 2x arttı" },
+              ].map(s => (
+                <div key={s.sector} style={{ background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.07)", borderRadius: 18, padding: 24 }}>
+                  <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 14 }}>
+                    <span style={{ fontSize: 28 }}>{s.icon}</span>
+                    <h3 style={{ fontSize: 16, fontWeight: 700, margin: 0 }}>{s.sector}</h3>
+                  </div>
+                  <p style={{ color: "rgba(255,255,255,0.55)", fontSize: 13, lineHeight: 1.7, marginBottom: 14, whiteSpace: "pre-line" }}>{s.scenario}</p>
+                  <div style={{ display: "inline-flex", alignItems: "center", gap: 5, background: "rgba(16,185,129,0.1)", border: "1px solid rgba(16,185,129,0.2)", borderRadius: 8, padding: "5px 12px" }}>
+                    <span style={{ fontSize: 11, color: "#10B981", fontWeight: 700 }}>📈 {s.result}</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </section>
+
+          {/* ENTEGRASYONLAR */}
+          <section style={{ padding: "70px 24px", maxWidth: 1080, margin: "0 auto" }}>
+            <div style={{ textAlign: "center", marginBottom: 48 }}>
+              <h2 style={{ fontSize: 36, fontWeight: 700, marginBottom: 10 }}>Güçlü <span style={{ color: "#F59E0B" }}>Entegrasyonlar</span></h2>
+              <p style={{ color: "rgba(255,255,255,0.4)", fontSize: 15 }}>En iyi teknolojilerle sorunsuz çalışır.</p>
+            </div>
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: 16 }}>
+              {[
+                { name: "WhatsApp", icon: "💬", desc: "Resmi WhatsApp Business entegrasyonu", color: "#25D366" },
+                { name: "OpenAI GPT", icon: "🧠", desc: "En gelişmiş yapay zeka modeli", color: "#10B981" },
+                { name: "CRM", icon: "📊", desc: "HubSpot, Salesforce, Zoho bağlantısı", color: "#F59E0B" },
+                { name: "Otomasyon", icon: "⚡", desc: "500+ uygulama ile otomasyon", color: "#8B5CF6" },
+              ].map(i => (
+                <div key={i.name} style={{ background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.07)", borderRadius: 16, padding: 22, textAlign: "center" }}>
+                  <div style={{ fontSize: 32, marginBottom: 10 }}>{i.icon}</div>
+                  <h4 style={{ fontSize: 14, fontWeight: 700, marginBottom: 4, color: i.color }}>{i.name}</h4>
+                  <p style={{ color: "rgba(255,255,255,0.4)", fontSize: 12, lineHeight: 1.6 }}>{i.desc}</p>
+                </div>
+              ))}
+            </div>
+          </section>
+
+          {/* CANLI DEMO CTA */}
+          <section style={{ padding: "60px 24px", maxWidth: 800, margin: "0 auto" }}>
+            <div style={{ background: "linear-gradient(135deg,rgba(37,211,102,0.1),rgba(18,140,126,0.05))", border: "1px solid rgba(37,211,102,0.2)", borderRadius: 24, padding: "40px 32px", textAlign: "center" }}>
+              <div style={{ fontSize: 42, marginBottom: 16 }}>📱</div>
+              <h2 style={{ fontSize: 28, fontWeight: 800, marginBottom: 10 }}>Hemen Deneyin!</h2>
+              <p style={{ color: "rgba(255,255,255,0.5)", fontSize: 15, marginBottom: 24, lineHeight: 1.7 }}>WhatsApp'tan mesaj gönderin, AI asistanımızın gücünü bizzat deneyimleyin.</p>
+              <button onClick={() => window.open("https://wa.me/905327834244?text=Merhaba%2C%20demo%20g%C3%B6rmek%20istiyorum", "_blank")} style={{ background: "linear-gradient(135deg,#25D366,#128C7E)", color: "#fff", border: "none", padding: "16px 36px", borderRadius: 14, fontWeight: 700, fontSize: 16, cursor: "pointer", boxShadow: "0 4px 20px rgba(37,211,102,0.3)" }}>💬 WhatsApp'ta Dene →</button>
+            </div>
+          </section>
+
           <section style={{ padding: "70px 24px", maxWidth: 1080, margin: "0 auto" }}>
             <div style={{ textAlign: "center", marginBottom: 48 }}>
               <h2 style={{ fontSize: 36, fontWeight: 700, marginBottom: 10 }}><span style={{ color: "#F59E0B" }}>Fiyatlandırma</span></h2>
@@ -417,6 +498,30 @@ export default function Home() {
                   </button>
                 </div>
               ))}
+            </div>
+          </section>
+
+          <section style={{ padding: "70px 24px", maxWidth: 1080, margin: "0 auto" }}>
+            <div style={{ textAlign: "center", marginBottom: 48 }}>
+              <h2 style={{ fontSize: 36, fontWeight: 700, marginBottom: 10 }}>Sektörünüze Özel <span style={{ color: "#F59E0B" }}>Hazır AI Şablonlar</span></h2>
+              <p style={{ color: "rgba(255,255,255,0.4)", fontSize: 15 }}>Her sektör için optimize edilmiş yapay zeka asistanı. Bilgilerinizi girin, anında çalışsın.</p>
+            </div>
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 16 }}>
+              {SECTORS.map(s => (
+                <div key={s.id} style={{ background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.07)", borderRadius: 18, padding: 24, textAlign: "center", cursor: "pointer", transition: "all 0.3s ease" }} onMouseEnter={e => { e.currentTarget.style.borderColor = "rgba(245,158,11,0.3)"; e.currentTarget.style.background = "rgba(245,158,11,0.05)"; }} onMouseLeave={e => { e.currentTarget.style.borderColor = "rgba(255,255,255,0.07)"; e.currentTarget.style.background = "rgba(255,255,255,0.02)"; }}>
+                  <div style={{ fontSize: 36, marginBottom: 12 }}>{s.icon}</div>
+                  <h3 style={{ fontSize: 16, fontWeight: 700, marginBottom: 6 }}>{s.name}</h3>
+                  <p style={{ color: "rgba(255,255,255,0.45)", fontSize: 13, lineHeight: 1.6, marginBottom: 16 }}>{s.desc}</p>
+                  <div style={{ display: "inline-flex", alignItems: "center", gap: 5, background: "rgba(16,185,129,0.1)", border: "1px solid rgba(16,185,129,0.2)", borderRadius: 100, padding: "4px 12px" }}>
+                    <span style={{ width: 6, height: 6, borderRadius: "50%", background: "#10B981" }} />
+                    <span style={{ fontSize: 11, color: "#10B981", fontWeight: 600 }}>Şablon Hazır</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+            <div style={{ textAlign: "center", marginTop: 32 }}>
+              <p style={{ color: "rgba(255,255,255,0.35)", fontSize: 13, marginBottom: 16 }}>Sektörünüzü göremiyorsanız bize yazın, özel şablon hazırlayalım.</p>
+              <button onClick={() => window.open("https://wa.me/905327834244?text=Merhaba%2C%20sekt%C3%B6r%C3%BCme%20%C3%B6zel%20%C5%9Fablon%20istiyorum", "_blank")} style={{ background: "linear-gradient(135deg,#25D366,#128C7E)", color: "#fff", border: "none", padding: "12px 24px", borderRadius: 11, fontWeight: 700, fontSize: 13, cursor: "pointer" }}>💬 Özel Şablon Talep Et</button>
             </div>
           </section>
 
@@ -547,6 +652,82 @@ export default function Home() {
               <button onClick={() => window.open("https://wa.me/905327834244?text=Merhaba%2C%20bir%20sorum%20var", "_blank")} style={{ padding: "11px 22px", background: "linear-gradient(135deg,#25D366,#128C7E)", color: "#fff", border: "none", borderRadius: 11, fontWeight: 700, fontSize: 13, cursor: "pointer" }}>💬 WhatsApp'tan Yaz</button>
               <button style={{ padding: "11px 20px", background: "rgba(255,255,255,0.05)", color: "#fff", border: "1px solid rgba(255,255,255,0.1)", borderRadius: 11, fontWeight: 600, fontSize: 13, cursor: "pointer" }}>✉️ E-posta Gönder</button>
             </div>
+          </div>
+        </div>
+      )}
+
+      {page === "demo" && (
+        <div style={{ maxWidth: 700, margin: "0 auto", padding: "60px 24px", position: "relative", zIndex: 1, textAlign: "center" }}>
+          <div style={{ fontSize: 52, marginBottom: 20 }}>📱</div>
+          <h1 style={{ fontSize: 42, fontWeight: 800, marginBottom: 12 }}>Canlı <span style={{ background: "linear-gradient(135deg,#25D366,#128C7E)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>Demo</span></h1>
+          <p style={{ color: "rgba(255,255,255,0.5)", fontSize: 16, lineHeight: 1.7, marginBottom: 36 }}>AI asistanımızı şimdi test edin. WhatsApp'tan mesaj gönderin, yapay zekanın gücünü deneyimleyin. Ücretsiz, kayıt gerektirmez.</p>
+          <button onClick={() => window.open("https://wa.me/905327834244?text=Merhaba%2C%20demo%20g%C3%B6rmek%20istiyorum", "_blank")} style={{ background: "linear-gradient(135deg,#25D366,#128C7E)", color: "#fff", border: "none", padding: "18px 42px", borderRadius: 14, fontWeight: 700, fontSize: 17, cursor: "pointer", boxShadow: "0 4px 24px rgba(37,211,102,0.35)", marginBottom: 48 }}>💬 WhatsApp'ta Deneyin →</button>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 16, marginTop: 20 }}>
+            {[
+              { icon: "⚡", title: "Anında Yanıt", desc: "Mesajınıza saniyeler içinde cevap alın" },
+              { icon: "🧠", title: "Akıllı Diyalog", desc: "Sorularınızı anlayan gerçek AI" },
+              { icon: "🔒", title: "Güvenli", desc: "Verileriniz korunur, KVKK uyumlu" },
+            ].map(f => (
+              <div key={f.title} style={{ background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.07)", borderRadius: 16, padding: 22 }}>
+                <div style={{ fontSize: 28, marginBottom: 10 }}>{f.icon}</div>
+                <h4 style={{ fontSize: 14, fontWeight: 700, marginBottom: 4 }}>{f.title}</h4>
+                <p style={{ color: "rgba(255,255,255,0.4)", fontSize: 12 }}>{f.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {page === "contact" && (
+        <div style={{ maxWidth: 700, margin: "0 auto", padding: "52px 24px", position: "relative", zIndex: 1 }}>
+          <div style={{ textAlign: "center", marginBottom: 44 }}>
+            <h1 style={{ fontSize: 42, fontWeight: 800, marginBottom: 12 }}>Bize <span style={{ background: "linear-gradient(135deg,#F59E0B,#EF4444)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>Ulaşın</span></h1>
+            <p style={{ color: "rgba(255,255,255,0.4)", fontSize: 15 }}>Sorularınız için bize her kanaldan ulaşabilirsiniz.</p>
+          </div>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(2,1fr)", gap: 16, marginBottom: 32 }}>
+            {[
+              { icon: "💬", title: "WhatsApp", desc: "En hızlı iletişim kanalı", action: "Mesaj Gönder", link: "https://wa.me/905327834244?text=Merhaba%2C%20bilgi%20almak%20istiyorum", color: "#25D366" },
+              { icon: "✉️", title: "E-posta", desc: "bagdatturhan@gmail.com", action: "Mail Gönder", link: "mailto:bagdatturhan@gmail.com", color: "#F59E0B" },
+            ].map(c => (
+              <div key={c.title} onClick={() => window.open(c.link, "_blank")} style={{ background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.07)", borderRadius: 18, padding: 28, textAlign: "center", cursor: "pointer", transition: "all 0.3s" }} onMouseEnter={e => e.currentTarget.style.borderColor = `${c.color}50`} onMouseLeave={e => e.currentTarget.style.borderColor = "rgba(255,255,255,0.07)"}>
+                <div style={{ fontSize: 32, marginBottom: 12 }}>{c.icon}</div>
+                <h3 style={{ fontSize: 16, fontWeight: 700, marginBottom: 4, color: c.color }}>{c.title}</h3>
+                <p style={{ color: "rgba(255,255,255,0.4)", fontSize: 13, marginBottom: 16 }}>{c.desc}</p>
+                <span style={{ background: `${c.color}15`, border: `1px solid ${c.color}30`, color: c.color, padding: "8px 18px", borderRadius: 10, fontSize: 13, fontWeight: 700 }}>{c.action}</span>
+              </div>
+            ))}
+          </div>
+          <div style={{ background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.07)", borderRadius: 20, padding: 28, textAlign: "center" }}>
+            <h3 style={{ fontSize: 18, marginBottom: 6 }}>Çalışma Saatleri</h3>
+            <p style={{ color: "rgba(255,255,255,0.45)", fontSize: 14, lineHeight: 1.8 }}>Pazartesi - Cuma: 09:00 - 18:00<br/>AI Asistanımız: 7/24 aktif</p>
+          </div>
+        </div>
+      )}
+
+      {page === "blog" && (
+        <div style={{ maxWidth: 800, margin: "0 auto", padding: "52px 24px", position: "relative", zIndex: 1 }}>
+          <div style={{ textAlign: "center", marginBottom: 44 }}>
+            <h1 style={{ fontSize: 42, fontWeight: 800, marginBottom: 12 }}><span style={{ background: "linear-gradient(135deg,#F59E0B,#EF4444)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>Blog</span></h1>
+            <p style={{ color: "rgba(255,255,255,0.4)", fontSize: 15 }}>WhatsApp otomasyon ve AI dünyasından güncel içerikler.</p>
+          </div>
+          <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+            {[
+              { title: "WhatsApp Chatbot ile Müşteri Memnuniyetini %40 Artırmanın Yolları", date: "12 Mart 2026", tag: "Rehber", color: "#F59E0B" },
+              { title: "KOBİ'ler için WhatsApp Otomasyon Rehberi 2026", date: "10 Mart 2026", tag: "Strateji", color: "#10B981" },
+              { title: "Restoran Sahipleri için Sipariş Otomasyonu", date: "8 Mart 2026", tag: "Sektörel", color: "#8B5CF6" },
+              { title: "AI Asistan vs Manuel Müşteri Hizmetleri: Maliyet Karşılaştırması", date: "5 Mart 2026", tag: "Analiz", color: "#EC4899" },
+            ].map(b => (
+              <div key={b.title} style={{ background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.07)", borderRadius: 16, padding: 24, cursor: "pointer", transition: "all 0.3s" }} onMouseEnter={e => e.currentTarget.style.borderColor = "rgba(245,158,11,0.3)"} onMouseLeave={e => e.currentTarget.style.borderColor = "rgba(255,255,255,0.07)"}>
+                <div style={{ display: "flex", gap: 10, alignItems: "center", marginBottom: 10 }}>
+                  <span style={{ background: `${b.color}15`, border: `1px solid ${b.color}30`, color: b.color, padding: "3px 10px", borderRadius: 6, fontSize: 11, fontWeight: 700 }}>{b.tag}</span>
+                  <span style={{ color: "rgba(255,255,255,0.3)", fontSize: 12 }}>{b.date}</span>
+                </div>
+                <h3 style={{ fontSize: 16, fontWeight: 700, lineHeight: 1.5 }}>{b.title}</h3>
+              </div>
+            ))}
+          </div>
+          <div style={{ textAlign: "center", marginTop: 32 }}>
+            <p style={{ color: "rgba(255,255,255,0.3)", fontSize: 13 }}>Daha fazla içerik yakında...</p>
           </div>
         </div>
       )}
