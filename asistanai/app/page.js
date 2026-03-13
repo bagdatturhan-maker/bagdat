@@ -331,6 +331,68 @@ export default function Home() {
   const [rf, setRf] = useState({ name: "", company: "", text: "", rating: 5 });
   const [cookieConsent, setCookieConsent] = useState(null);
 
+  // Auth states
+  const [authMode, setAuthMode] = useState("login");
+  const [authEmail, setAuthEmail] = useState("");
+  const [authPass, setAuthPass] = useState("");
+  const [authName, setAuthName] = useState("");
+  const [authPhone, setAuthPhone] = useState("");
+  const [authUser, setAuthUser] = useState(null);
+  const [authError, setAuthError] = useState("");
+  const [authLoading, setAuthLoading] = useState(false);
+  const [dashData, setDashData] = useState({ totalMessages: 0, todayMessages: 0, appointments: 0, recentMessages: [] });
+
+  const SUPABASE_URL = "https://xijrzpeexmucibivqsnt.supabase.co";
+  const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhpanJ6cGVleG11Y2liaXZxc250Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzMzOTU2OTEsImV4cCI6MjA4ODk3MTY5MX0.4FxdyTEsSME2VAho-ZrSQQaFXemSM8Mbn2rhE6hljd0";
+
+  const supaFetch = async (path, options = {}) => {
+    const res = await fetch(`${SUPABASE_URL}${path}`, {
+      ...options,
+      headers: { "apikey": SUPABASE_KEY, "Content-Type": "application/json", "Authorization": `Bearer ${options.token || SUPABASE_KEY}`, ...options.headers },
+    });
+    return res.json();
+  };
+
+  const handleAuth = async () => {
+    setAuthLoading(true);
+    setAuthError("");
+    try {
+      if (authMode === "login") {
+        const data = await supaFetch("/auth/v1/token?grant_type=password", {
+          method: "POST",
+          body: JSON.stringify({ email: authEmail, password: authPass }),
+        });
+        if (data.error) { setAuthError(data.error.message || "Giriş başarısız"); setAuthLoading(false); return; }
+        setAuthUser(data.user);
+        loadDashboard(data.access_token);
+        setPage("dashboard");
+      } else {
+        const data = await supaFetch("/auth/v1/signup", {
+          method: "POST",
+          body: JSON.stringify({ email: authEmail, password: authPass, data: { name: authName, phone: authPhone } }),
+        });
+        if (data.error) { setAuthError(data.error.message || "Kayıt başarısız"); setAuthLoading(false); return; }
+        setAuthUser(data.user);
+        setPage("dashboard");
+      }
+    } catch (e) { setAuthError("Bağlantı hatası"); }
+    setAuthLoading(false);
+  };
+
+  const loadDashboard = async (token) => {
+    try {
+      const msgs = await supaFetch("/rest/v1/messages?select=*&order=created_at.desc&limit=10", { token });
+      const today = new Date().toISOString().split("T")[0];
+      const todayMsgs = Array.isArray(msgs) ? msgs.filter(m => m.created_at?.startsWith(today)) : [];
+      setDashData({
+        totalMessages: Array.isArray(msgs) ? msgs.length : 0,
+        todayMessages: todayMsgs.length,
+        appointments: 0,
+        recentMessages: Array.isArray(msgs) ? msgs.slice(0, 5) : [],
+      });
+    } catch (e) {}
+  };
+
   useEffect(() => {
     try { const saved = window.sessionStorage?.getItem?.("cookie_consent"); if (saved) setCookieConsent(saved); } catch(e) {}
   }, []);
@@ -742,25 +804,98 @@ export default function Home() {
         </div>
       )}
 
-      {page === "login" && (
+      {page === "login" && !authUser && (
         <div style={{ display: "flex", alignItems: "center", justifyContent: "center", minHeight: "calc(100vh - 60px)", padding: 24, position: "relative", zIndex: 1 }}>
           <div style={{ width: "100%", maxWidth: 400 }}>
             <div style={{ textAlign: "center", marginBottom: 36 }}>
               <div style={{ width: 52, height: 52, background: "linear-gradient(135deg,#F59E0B,#EF4444)", borderRadius: 14, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 24, fontWeight: 800, color: "#fff", margin: "0 auto 14px" }}>A</div>
-              <h2 style={{ fontSize: 24, margin: "0 0 6px" }}>Müşteri Paneli</h2>
-              <p style={{ color: "rgba(255,255,255,0.4)", fontSize: 13, margin: 0 }}>Botunuzu yönetmek için giriş yapın</p>
+              <h2 style={{ fontSize: 24, margin: "0 0 6px" }}>{authMode === "login" ? "Giriş Yap" : "Kayıt Ol"}</h2>
+              <p style={{ color: "rgba(255,255,255,0.4)", fontSize: 13, margin: 0 }}>{authMode === "login" ? "Botunuzu yönetmek için giriş yapın" : "Yeni hesap oluşturun"}</p>
             </div>
-            <div style={{ background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.08)", borderRadius: 20, padding: 28 }}>
-              {[["E-POSTA","email","ornek@sirket.com"],["ŞİFRE","password","••••••••"]].map(([l,t,p]) => (
-                <div key={l} style={{ marginBottom: 14 }}>
-                  <label style={lbl}>{l}</label>
-                  <input type={t} placeholder={p} style={inp} />
-                </div>
-              ))}
-              <div style={{ textAlign: "right", marginBottom: 22 }}>
-                <a href="#" style={{ color: "#F59E0B", fontSize: 12, textDecoration: "none" }}>Şifremi unuttum</a>
+            {authError && <p style={{ color: "#EF4444", fontSize: 13, textAlign: "center", marginBottom: 14, background: "rgba(239,68,68,0.1)", padding: "10px 14px", borderRadius: 10, border: "1px solid rgba(239,68,68,0.2)" }}>{authError}</p>}
+            {authMode === "register" && (
+              <div style={{ marginBottom: 14 }}>
+                <label style={lbl}>AD SOYAD</label>
+                <input placeholder="Turhan Bağdat" value={authName} onChange={e => setAuthName(e.target.value)} style={inp} />
               </div>
-              <button style={{ width: "100%", padding: "13px 0", background: "linear-gradient(135deg,#F59E0B,#D97706)", color: "#000", border: "none", borderRadius: 11, fontWeight: 700, fontSize: 14, cursor: "pointer" }}>Giriş Yap</button>
+            )}
+            <div style={{ background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.08)", borderRadius: 20, padding: 28 }}>
+              <div style={{ marginBottom: 14 }}>
+                <label style={lbl}>E-POSTA</label>
+                <input type="email" placeholder="ornek@sirket.com" value={authEmail} onChange={e => setAuthEmail(e.target.value)} style={inp} />
+              </div>
+              <div style={{ marginBottom: 14 }}>
+                <label style={lbl}>ŞİFRE</label>
+                <input type="password" placeholder="••••••••" value={authPass} onChange={e => setAuthPass(e.target.value)} style={inp} />
+              </div>
+              {authMode === "register" && (
+                <div style={{ marginBottom: 14 }}>
+                  <label style={lbl}>TELEFON</label>
+                  <input type="tel" placeholder="05XX XXX XX XX" value={authPhone} onChange={e => setAuthPhone(e.target.value)} style={inp} />
+                </div>
+              )}
+              <button onClick={handleAuth} disabled={authLoading} style={{ width: "100%", padding: "13px 0", background: authLoading ? "rgba(245,158,11,0.5)" : "linear-gradient(135deg,#F59E0B,#D97706)", color: "#000", border: "none", borderRadius: 11, fontWeight: 700, fontSize: 14, cursor: authLoading ? "wait" : "pointer", marginBottom: 14 }}>{authLoading ? "Yükleniyor..." : (authMode === "login" ? "Giriş Yap" : "Kayıt Ol")}</button>
+              <p style={{ textAlign: "center", color: "rgba(255,255,255,0.4)", fontSize: 13 }}>
+                {authMode === "login" ? "Hesabınız yok mu? " : "Zaten hesabınız var mı? "}
+                <button onClick={() => { setAuthMode(authMode === "login" ? "register" : "login"); setAuthError(""); }} style={{ background: "none", border: "none", color: "#F59E0B", cursor: "pointer", fontSize: 13, fontWeight: 700 }}>{authMode === "login" ? "Kayıt Ol" : "Giriş Yap"}</button>
+              </p>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {(page === "login" || page === "dashboard") && authUser && (
+        <div style={{ maxWidth: 1000, margin: "0 auto", padding: "40px 24px", position: "relative", zIndex: 1 }}>
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 32 }}>
+            <div>
+              <h1 style={{ fontSize: 28, fontWeight: 800, margin: "0 0 4px" }}>Hoş geldiniz! 👋</h1>
+              <p style={{ color: "rgba(255,255,255,0.4)", fontSize: 14, margin: 0 }}>{authUser.email}</p>
+            </div>
+            <button onClick={() => { setAuthUser(null); setPage("home"); }} style={{ padding: "9px 18px", background: "rgba(239,68,68,0.1)", border: "1px solid rgba(239,68,68,0.2)", borderRadius: 10, color: "#EF4444", fontSize: 13, fontWeight: 600, cursor: "pointer" }}>Çıkış Yap</button>
+          </div>
+
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: 16, marginBottom: 32 }}>
+            {[
+              { label: "Toplam Mesaj", value: dashData.totalMessages, icon: "💬", color: "#F59E0B" },
+              { label: "Bugün", value: dashData.todayMessages, icon: "📅", color: "#10B981" },
+              { label: "Randevular", value: dashData.appointments, icon: "📋", color: "#8B5CF6" },
+              { label: "Durum", value: "Aktif", icon: "✅", color: "#25D366" },
+            ].map(s => (
+              <div key={s.label} style={{ background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.07)", borderRadius: 16, padding: 20, textAlign: "center" }}>
+                <div style={{ fontSize: 24, marginBottom: 8 }}>{s.icon}</div>
+                <div style={{ fontSize: 22, fontWeight: 800, color: s.color }}>{s.value}</div>
+                <div style={{ fontSize: 12, color: "rgba(255,255,255,0.4)", marginTop: 4 }}>{s.label}</div>
+              </div>
+            ))}
+          </div>
+
+          <div style={{ background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.07)", borderRadius: 20, padding: 24, marginBottom: 24 }}>
+            <h3 style={{ fontSize: 16, fontWeight: 700, marginBottom: 16, color: "#F59E0B" }}>Son Mesajlar</h3>
+            {dashData.recentMessages.length === 0 ? (
+              <p style={{ color: "rgba(255,255,255,0.3)", fontSize: 13 }}>Henüz mesaj yok</p>
+            ) : (
+              dashData.recentMessages.map((m, i) => (
+                <div key={i} style={{ display: "flex", justifyContent: "space-between", padding: "12px 0", borderBottom: i < dashData.recentMessages.length - 1 ? "1px solid rgba(255,255,255,0.05)" : "none" }}>
+                  <div>
+                    <p style={{ fontSize: 13, fontWeight: 600, margin: "0 0 4px" }}>{m.from_number}</p>
+                    <p style={{ fontSize: 12, color: "rgba(255,255,255,0.4)", margin: 0 }}>{m.body}</p>
+                  </div>
+                  <div style={{ textAlign: "right" }}>
+                    <p style={{ fontSize: 11, color: "rgba(255,255,255,0.25)", margin: "0 0 4px" }}>{new Date(m.created_at).toLocaleString("tr-TR")}</p>
+                    <p style={{ fontSize: 12, color: "#10B981", margin: 0 }}>AI: {m.ai_response?.substring(0, 40)}...</p>
+                  </div>
+                </div>
+              ))
+            )}
+          </div>
+
+          <div style={{ background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.07)", borderRadius: 20, padding: 24 }}>
+            <h3 style={{ fontSize: 16, fontWeight: 700, marginBottom: 16, color: "#F59E0B" }}>Hesap Bilgileri</h3>
+            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}>
+              <div><span style={{ color: "rgba(255,255,255,0.35)", fontSize: 12 }}>E-posta</span><p style={{ fontSize: 14, margin: "4px 0 0" }}>{authUser.email}</p></div>
+              <div><span style={{ color: "rgba(255,255,255,0.35)", fontSize: 12 }}>Plan</span><p style={{ fontSize: 14, margin: "4px 0 0", color: "#F59E0B" }}>Başlangıç (₺499/ay)</p></div>
+              <div><span style={{ color: "rgba(255,255,255,0.35)", fontSize: 12 }}>Kayıt Tarihi</span><p style={{ fontSize: 14, margin: "4px 0 0" }}>{new Date(authUser.created_at).toLocaleDateString("tr-TR")}</p></div>
+              <div><span style={{ color: "rgba(255,255,255,0.35)", fontSize: 12 }}>Durum</span><p style={{ fontSize: 14, margin: "4px 0 0", color: "#10B981" }}>Aktif</p></div>
             </div>
           </div>
         </div>
