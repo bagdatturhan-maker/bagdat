@@ -354,28 +354,46 @@ export default function Home() {
   };
 
   const handleAuth = async () => {
+    if (!authEmail || !authPass) { setAuthError("E-posta ve şifre zorunludur"); return; }
+    if (authMode === "register" && authPass.length < 6) { setAuthError("Şifre en az 6 karakter olmalıdır"); return; }
     setAuthLoading(true);
     setAuthError("");
     try {
       if (authMode === "login") {
-        const data = await supaFetch("/auth/v1/token?grant_type=password", {
+        const res = await fetch(`${SUPABASE_URL}/auth/v1/token?grant_type=password`, {
           method: "POST",
+          headers: { "apikey": SUPABASE_KEY, "Content-Type": "application/json" },
           body: JSON.stringify({ email: authEmail, password: authPass }),
         });
-        if (data.error) { setAuthError(data.error.message || "Giriş başarısız"); setAuthLoading(false); return; }
+        const data = await res.json();
+        if (!res.ok || data.error) {
+          const msg = data.error_description || data.error?.message || data.msg || "Giriş başarısız";
+          setAuthError(msg === "Invalid login credentials" ? "E-posta veya şifre yanlış" : msg === "Email not confirmed" ? "E-posta doğrulanmamış" : msg);
+          setAuthLoading(false);
+          return;
+        }
         setAuthUser(data.user);
         loadDashboard(data.access_token);
         setPage("dashboard");
       } else {
-        const data = await supaFetch("/auth/v1/signup", {
+        if (!authName) { setAuthError("Ad soyad zorunludur"); setAuthLoading(false); return; }
+        const res = await fetch(`${SUPABASE_URL}/auth/v1/signup`, {
           method: "POST",
+          headers: { "apikey": SUPABASE_KEY, "Content-Type": "application/json" },
           body: JSON.stringify({ email: authEmail, password: authPass, data: { name: authName, phone: authPhone } }),
         });
-        if (data.error) { setAuthError(data.error.message || "Kayıt başarısız"); setAuthLoading(false); return; }
+        const data = await res.json();
+        if (!res.ok || data.error) {
+          const msg = data.error?.message || data.msg || "Kayıt başarısız";
+          setAuthError(msg === "User already registered" ? "Bu e-posta zaten kayıtlı" : msg);
+          setAuthLoading(false);
+          return;
+        }
         setAuthUser(data.user);
+        loadDashboard(data.access_token);
         setPage("dashboard");
       }
-    } catch (e) { setAuthError("Bağlantı hatası"); }
+    } catch (e) { setAuthError("Bağlantı hatası. Lütfen tekrar deneyin."); }
     setAuthLoading(false);
   };
 
