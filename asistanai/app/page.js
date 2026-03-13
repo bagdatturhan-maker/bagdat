@@ -329,6 +329,16 @@ export default function Home() {
   const [reviewModal, setReviewModal] = useState(false);
   const [reviewSent, setReviewSent] = useState(false);
   const [rf, setRf] = useState({ name: "", company: "", text: "", rating: 5 });
+  const [cookieConsent, setCookieConsent] = useState(null);
+
+  useEffect(() => {
+    try { const saved = window.sessionStorage?.getItem?.("cookie_consent"); if (saved) setCookieConsent(saved); } catch(e) {}
+  }, []);
+
+  const acceptCookies = (type) => {
+    setCookieConsent(type);
+    try { window.sessionStorage?.setItem?.("cookie_consent", type); } catch(e) {}
+  };
 
   const NAV = [{ id: "home", label: "Ana Sayfa" }, { id: "demo", label: "Canlı Demo" }, { id: "reviews", label: "Referanslar" }, { id: "blog", label: "Blog" }, { id: "faq", label: "SSS" }, { id: "contact", label: "İletişim" }];
 
@@ -756,17 +766,85 @@ export default function Home() {
         </div>
       )}
 
+      {page === "privacy" && (
+        <div style={{ maxWidth: 800, margin: "0 auto", padding: "52px 24px", position: "relative", zIndex: 1 }}>
+          <h1 style={{ fontSize: 36, fontWeight: 800, marginBottom: 24 }}>Gizlilik <span style={{ color: "#F59E0B" }}>Politikası</span></h1>
+          <p style={{ color: "rgba(255,255,255,0.35)", fontSize: 13, marginBottom: 32 }}>Son güncelleme: 12 Mart 2026</p>
+          {[
+            { title: "Veri Sorumlusu", content: "Asistania (İşletme Sahibi: Turhan Bağdat)\nAdres: Caddebulvarı Caddesi Mevlana Sokak No 10\nE-posta: bagdatturhan@gmail.com" },
+            { title: "Toplanan Veriler", content: "WhatsApp üzerinden: Telefon numarası, profil adı, mesaj içerikleri, mesaj zamanı.\nWeb sitesi üzerinden: Çerezler, IP adresi, tarayıcı bilgisi.\nÖdeme için: Ad-soyad, e-posta, telefon (ödeme bilgileri ödeme sağlayıcı tarafından işlenir)." },
+            { title: "Verilerin Kullanım Amacı", content: "• WhatsApp üzerinden yapay zeka destekli müşteri asistanı hizmeti sunmak\n• Mesajlarınızı yapay zeka (OpenAI) ile işleyerek uygun yanıtlar üretmek\n• Hizmet kalitesini artırmak ve teknik sorunları gidermek\n• Abonelik ve ödeme işlemlerini yürütmek" },
+            { title: "Veri Aktarımı", content: "Kişisel verileriniz aşağıdaki üçüncü taraflarla paylaşılmaktadır:\n• OpenAI Inc. (ABD) — Mesaj içerikleriniz yapay zeka yanıtı üretmek için gönderilir\n• Hetzner Online GmbH (Almanya) — Sunucu altyapımız\n• Cloudflare Inc. (ABD) — DNS ve güvenlik hizmetleri\n\n⚠️ Mesaj içerikleriniz ABD'deki OpenAI sunucularına aktarılmaktadır. Hizmetimizi kullanarak bu yurt dışı veri aktarımına açık rıza göstermiş sayılırsınız." },
+            { title: "Veri Güvenliği", content: "• Tüm iletişim SSL/TLS (HTTPS) ile şifrelenir\n• Sunucularımız Hetzner (Almanya, GDPR uyumlu) üzerindedir\n• Firewall ve güvenlik duvarı aktiftir\n• API anahtarları güçlü şifreleme ile korunur" },
+            { title: "Veri Saklama Süresi", content: "• Mesaj içerikleri: Hizmet süresi boyunca + abonelik iptalinden sonra 30 gün\n• Ödeme bilgileri: Yasal zorunluluk süresi (5 yıl)\n• Hesap bilgileri: Hesap silinene kadar" },
+            { title: "Haklarınız (KVKK Madde 11)", content: "• Kişisel verilerinizin işlenip işlenmediğini öğrenme\n• İşlenmişse buna ilişkin bilgi talep etme\n• İşlenme amacını öğrenme\n• Yurt içinde veya yurt dışında aktarıldığı üçüncü kişileri bilme\n• Eksik veya yanlış işlenmişse düzeltilmesini isteme\n• Silinmesini veya yok edilmesini isteme\n\nBaşvurularınızı bagdatturhan@gmail.com adresine iletebilirsiniz." },
+            { title: "Çocukların Gizliliği", content: "Hizmetimiz 18 yaşının altındaki bireylere yönelik değildir." },
+          ].map(s => (
+            <div key={s.title} style={{ marginBottom: 28 }}>
+              <h3 style={{ fontSize: 18, fontWeight: 700, color: "#F59E0B", marginBottom: 10 }}>{s.title}</h3>
+              <p style={{ color: "rgba(255,255,255,0.55)", fontSize: 14, lineHeight: 1.8, whiteSpace: "pre-line" }}>{s.content}</p>
+            </div>
+          ))}
+        </div>
+      )}
+
+      {page === "terms" && (
+        <div style={{ maxWidth: 800, margin: "0 auto", padding: "52px 24px", position: "relative", zIndex: 1 }}>
+          <h1 style={{ fontSize: 36, fontWeight: 800, marginBottom: 24 }}>Kullanım <span style={{ color: "#F59E0B" }}>Koşulları</span></h1>
+          <p style={{ color: "rgba(255,255,255,0.35)", fontSize: 13, marginBottom: 32 }}>Son güncelleme: 12 Mart 2026</p>
+          {[
+            { title: "1. Hizmet Tanımı", content: "Asistania, işletmelere WhatsApp üzerinden yapay zeka destekli müşteri asistanı hizmeti sunan bir SaaS platformudur." },
+            { title: "2. Hizmet Kapsamı", content: "• WhatsApp numaranıza bağlı yapay zeka asistanı\n• 7/24 otomatik mesaj yanıtlama\n• Sektöre özel önceden yapılandırılmış asistan şablonları\n• Web paneli üzerinden yönetim (geliştirilmekte)" },
+            { title: "3. Abonelik ve Ödeme", content: "• Hizmet aylık abonelik modeliyle sunulur\n• Abonelik her ay otomatik yenilenir\n• İptal istediğiniz zaman yapılabilir, bir sonraki dönemden itibaren geçerli olur\n• Kısmi ay için iade yapılmaz" },
+            { title: "4. Kullanıcı Sorumlulukları", content: "• WhatsApp hizmet koşullarına uymak\n• Spam, toplu mesaj veya istenmeyen ileti göndermemek\n• Yasadışı, müstehcen veya tehdit içeren içerik paylaşmamak\n• Asistanı yasadışı amaçlarla kullanmamak\n• Hesap bilgilerini üçüncü kişilerle paylaşmamak" },
+            { title: "5. Yapay Zeka Yanıtları Hakkında", content: "⚠️ ÖNEMLİ: Yapay zeka tarafından üretilen yanıtlar bilgi amaçlıdır ve hata içerebilir. Tıbbi, hukuki veya mali konularda profesyonel danışmanlık yerine geçmez. Asistania, AI yanıtlarının doğruluğu veya eksiksizliği konusunda garanti vermez." },
+            { title: "6. Sorumluluk Sınırlaması", content: "• Asistania, yapay zeka yanıtlarından kaynaklanan dolaylı zararlardan sorumlu değildir\n• WhatsApp hesabının Meta tarafından engellenmesi durumunda Asistania sorumlu tutulamaz\n• Asistania'nın toplam sorumluluğu, müşterinin son 3 ayda ödediği toplam ücretle sınırlıdır" },
+            { title: "7. İptal ve İade", content: "• Abonelik istediğiniz zaman iptal edilebilir\n• İptal, mevcut dönemin sonunda geçerli olur\n• İptal sonrası verileriniz 30 gün içinde silinir\n• 14 gün içinde cayma hakkı (Tüketicinin Korunması Kanunu)" },
+            { title: "8. Uygulanacak Hukuk", content: "Bu koşullar Türkiye Cumhuriyeti kanunlarına tabidir. Uyuşmazlıklarda İstanbul Mahkemeleri ve İcra Daireleri yetkilidir." },
+          ].map(s => (
+            <div key={s.title} style={{ marginBottom: 28 }}>
+              <h3 style={{ fontSize: 18, fontWeight: 700, color: "#F59E0B", marginBottom: 10 }}>{s.title}</h3>
+              <p style={{ color: "rgba(255,255,255,0.55)", fontSize: 14, lineHeight: 1.8, whiteSpace: "pre-line" }}>{s.content}</p>
+            </div>
+          ))}
+        </div>
+      )}
+
       <footer style={{ padding: "32px 24px", borderTop: "1px solid rgba(255,255,255,0.04)", textAlign: "center", position: "relative", zIndex: 1 }}>
         <div style={{ display: "flex", justifyContent: "center", gap: 20, marginBottom: 14 }}>
           {NAV.map(n => <button key={n.id} onClick={() => setPage(n.id)} style={{ background: "none", border: "none", color: "rgba(255,255,255,0.35)", fontSize: 13, cursor: "pointer" }}>{n.label}</button>)}
         </div>
-        <p style={{ color: "rgba(255,255,255,0.2)", fontSize: 12, margin: 0 }}>© 2026 AsistanAI — IA WhatsApp ile güçlendirilmiştir</p>
+        <div style={{ display: "flex", justifyContent: "center", gap: 16, marginBottom: 14 }}>
+          <button onClick={() => setPage("privacy")} style={{ background: "none", border: "none", color: "rgba(255,255,255,0.25)", fontSize: 12, cursor: "pointer" }}>Gizlilik Politikası</button>
+          <span style={{ color: "rgba(255,255,255,0.15)" }}>|</span>
+          <button onClick={() => setPage("terms")} style={{ background: "none", border: "none", color: "rgba(255,255,255,0.25)", fontSize: 12, cursor: "pointer" }}>Kullanım Koşulları</button>
+          <span style={{ color: "rgba(255,255,255,0.15)" }}>|</span>
+          <button onClick={() => setPage("contact")} style={{ background: "none", border: "none", color: "rgba(255,255,255,0.25)", fontSize: 12, cursor: "pointer" }}>İletişim</button>
+        </div>
+        <p style={{ color: "rgba(255,255,255,0.2)", fontSize: 12, margin: 0 }}>© 2026 Asistania — WhatsApp AI Asistan</p>
       </footer>
 
       {selectedPlan && <Wizard plan={selectedPlan} onClose={() => setSelectedPlan(null)} />}
 
+      {/* Cookie Consent Banner */}
+      {!cookieConsent && (
+        <div style={{ position: "fixed", bottom: 0, left: 0, right: 0, background: "rgba(6,6,16,0.97)", backdropFilter: "blur(20px)", borderTop: "1px solid rgba(245,158,11,0.2)", padding: "20px 24px", zIndex: 1000, display: "flex", flexWrap: "wrap", alignItems: "center", justifyContent: "space-between", gap: 16 }}>
+          <div style={{ flex: 1, minWidth: 280 }}>
+            <p style={{ fontSize: 14, color: "rgba(255,255,255,0.7)", margin: "0 0 6px", fontWeight: 600 }}>🍪 Çerez Bildirimi</p>
+            <p style={{ fontSize: 12, color: "rgba(255,255,255,0.45)", margin: 0, lineHeight: 1.6 }}>
+              Web sitemizde deneyiminizi iyileştirmek için çerezler kullanıyoruz. Zorunlu çerezler sitenin çalışması için gereklidir. Analitik ve reklam çerezleri ise tercihlerinize bağlıdır.{" "}
+              <button onClick={() => setPage("privacy")} style={{ background: "none", border: "none", color: "#F59E0B", fontSize: 12, cursor: "pointer", padding: 0, textDecoration: "underline" }}>Gizlilik Politikası</button>
+            </p>
+          </div>
+          <div style={{ display: "flex", gap: 10, flexShrink: 0 }}>
+            <button onClick={() => acceptCookies("essential")} style={{ padding: "10px 18px", background: "rgba(255,255,255,0.08)", color: "rgba(255,255,255,0.7)", border: "1px solid rgba(255,255,255,0.15)", borderRadius: 10, fontSize: 13, fontWeight: 600, cursor: "pointer" }}>Sadece Zorunlu</button>
+            <button onClick={() => acceptCookies("all")} style={{ padding: "10px 22px", background: "linear-gradient(135deg,#F59E0B,#D97706)", color: "#000", border: "none", borderRadius: 10, fontSize: 13, fontWeight: 700, cursor: "pointer" }}>Tümünü Kabul Et</button>
+          </div>
+        </div>
+      )}
+
       {/* WhatsApp Floating Button */}
-      <a href="https://wa.me/905327834244?text=Merhaba%2C%20bilgi%20almak%20istiyorum" target="_blank" rel="noopener noreferrer" style={{ position: "fixed", bottom: 24, right: 24, width: 60, height: 60, background: "linear-gradient(135deg,#25D366,#128C7E)", borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 28, color: "#fff", textDecoration: "none", boxShadow: "0 4px 20px rgba(37,211,102,0.4)", zIndex: 999, transition: "transform 0.3s ease" }} onMouseEnter={e => e.currentTarget.style.transform = "scale(1.1)"} onMouseLeave={e => e.currentTarget.style.transform = "scale(1)"}>💬</a>
+      <a href="https://wa.me/905327834244?text=Merhaba%2C%20bilgi%20almak%20istiyorum" target="_blank" rel="noopener noreferrer" style={{ position: "fixed", bottom: cookieConsent ? 24 : 100, right: 24, width: 60, height: 60, background: "linear-gradient(135deg,#25D366,#128C7E)", borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 28, color: "#fff", textDecoration: "none", boxShadow: "0 4px 20px rgba(37,211,102,0.4)", zIndex: 999, transition: "all 0.3s ease" }} onMouseEnter={e => e.currentTarget.style.transform = "scale(1.1)"} onMouseLeave={e => e.currentTarget.style.transform = "scale(1)"}>💬</a>
     </div>
   );
 }
