@@ -777,7 +777,7 @@ export default function Home() {
           <div style={{ display: "grid", gridTemplateColumns: "repeat(2,1fr)", gap: 16, marginBottom: 32 }}>
             {[
               { icon: "💬", title: "WhatsApp", desc: "En hızlı iletişim kanalı", action: "Mesaj Gönder", link: "https://wa.me/905327834244?text=Merhaba%2C%20bilgi%20almak%20istiyorum", color: "#25D366" },
-              { icon: "✉️", title: "E-posta", desc: "bagdatturhan@gmail.com", action: "Mail Gönder", link: "mailto:bagdatturhan@gmail.com", color: "#F59E0B" },
+              { icon: "✉️", title: "E-posta", desc: "info@asistania.com", action: "Mail Gönder", link: "mailto:info@asistania.com", color: "#F59E0B" },
             ].map(c => (
               <div key={c.title} onClick={() => window.open(c.link, "_blank")} style={{ background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.07)", borderRadius: 18, padding: 28, textAlign: "center", cursor: "pointer", transition: "all 0.3s" }} onMouseEnter={e => e.currentTarget.style.borderColor = `${c.color}50`} onMouseLeave={e => e.currentTarget.style.borderColor = "rgba(255,255,255,0.07)"}>
                 <div style={{ fontSize: 32, marginBottom: 12 }}>{c.icon}</div>
@@ -971,15 +971,15 @@ export default function Home() {
           {NAV.map(n => <button key={n.id} onClick={() => setPage(n.id)} style={{ background: "none", border: "none", color: "rgba(255,255,255,0.35)", fontSize: 13, cursor: "pointer" }}>{n.label}</button>)}
         </div>
         <div style={{ display: "flex", justifyContent: "center", gap: 16, flexWrap: "wrap", marginBottom: 14 }}>
-          <button onClick={() => setPage("privacy")} style={{ background: "none", border: "none", color: "rgba(255,255,255,0.25)", fontSize: 12, cursor: "pointer" }}>KVKK & Gizlilik</button>
+          <button onClick={() => setPage("privacy")} style={{ background: "none", border: "none", color: "rgba(255,255,255,0.25)", fontSize: 12, cursor: "pointer" }}>{"KVKK & Gizlilik"}</button>
           <span style={{ color: "rgba(255,255,255,0.15)" }}>|</span>
-          <button onClick={() => setPage("terms")} style={{ background: "none", border: "none", color: "rgba(255,255,255,0.25)", fontSize: 12, cursor: "pointer" }}>Kullan\u0131m Ko\u015Fullar\u0131</button>
+          <button onClick={() => setPage("terms")} style={{ background: "none", border: "none", color: "rgba(255,255,255,0.25)", fontSize: 12, cursor: "pointer" }}>{"Kullanım Koşulları"}</button>
           <span style={{ color: "rgba(255,255,255,0.15)" }}>|</span>
-          <button onClick={() => { setCookieConsent(null); }} style={{ background: "none", border: "none", color: "rgba(255,255,255,0.25)", fontSize: 12, cursor: "pointer" }}>\u00C7erez Tercihleri</button>
+          <button onClick={() => { setCookieConsent(null); }} style={{ background: "none", border: "none", color: "rgba(255,255,255,0.25)", fontSize: 12, cursor: "pointer" }}>{"Çerez Tercihleri"}</button>
           <span style={{ color: "rgba(255,255,255,0.15)" }}>|</span>
-          <button onClick={() => setPage("contact")} style={{ background: "none", border: "none", color: "rgba(255,255,255,0.25)", fontSize: 12, cursor: "pointer" }}>\u0130leti\u015Fim</button>
+          <button onClick={() => setPage("contact")} style={{ background: "none", border: "none", color: "rgba(255,255,255,0.25)", fontSize: 12, cursor: "pointer" }}>{"İletişim"}</button>
         </div>
-        <p style={{ color: "rgba(255,255,255,0.2)", fontSize: 12, margin: 0 }}>\u00A9 2026 Asistania \u2014 WhatsApp AI Asistan | B2B SaaS Hizmeti</p>
+        <p style={{ color: "rgba(255,255,255,0.2)", fontSize: 12, margin: 0 }}>{"© 2026 Asistania — WhatsApp AI Asistan | B2B SaaS Hizmeti"}</p>
       </footer>
 
       {selectedPlan && <Wizard plan={selectedPlan} onClose={() => setSelectedPlan(null)} />}
