@@ -2,9 +2,9 @@
 import { useState, useEffect, useRef } from "react";
 
 const PLANS = [
-  { id: "starter", name: "Başlangıç", price: "₺499", period: "/ay", color: "#10B981", features: ["1 WhatsApp Bot", "500 mesaj/ay", "Hazır şablonlar", "E-posta desteği", "Temel analitik"], popular: false },
-  { id: "professional", name: "Profesyonel", price: "₺1.299", period: "/ay", color: "#F59E0B", features: ["3 WhatsApp Bot", "5.000 mesaj/ay", "Özel senaryo", "CRM entegrasyonu", "Gelişmiş analitik", "Öncelikli destek"], popular: true },
-  { id: "enterprise", name: "Kurumsal", price: "₺2.999", period: "/ay", color: "#8B5CF6", features: ["Sınırsız Bot", "Sınırsız mesaj", "Özel AI eğitimi", "API erişimi", "Dedicated yönetici", "SLA garantisi"], popular: false },
+  { id: "starter", name: "Başlangıç", price: "₺499", period: "/ay", color: "#10B981", features: ["1 WhatsApp Hattı", "500 mesaj/ay", "AI Asistan 7/24", "Sektörel hazır şablon", "E-posta desteği"], popular: false },
+  { id: "professional", name: "Profesyonel", price: "₺1.299", period: "/ay", color: "#F59E0B", features: ["1 WhatsApp Hattı", "2.000 mesaj/ay", "AI Asistan 7/24", "Özel prompt ayarlama", "Google Takvim", "CRM entegrasyonu", "Öncelikli destek"], popular: true },
+  { id: "enterprise", name: "Kurumsal", price: "₺2.999", period: "/ay", color: "#8B5CF6", features: ["3 WhatsApp Hattı", "Sınırsız mesaj", "Özel AI eğitimi", "Google Takvim + CRM", "API erişimi", "Dedicated yönetici", "SLA garantisi"], popular: false },
 ];
 
 const SECTORS = [
@@ -537,7 +537,7 @@ export default function Home() {
             </div>
             <div style={{ display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: 16 }}>
               {[
-                { name: "WhatsApp", icon: "💬", desc: "Resmi WhatsApp Business entegrasyonu", color: "#25D366" },
+                { name: "WhatsApp", icon: "💬", desc: "WhatsApp Business Web entegrasyonu (QR ba\u011Flant\u0131)", color: "#25D366" },
                 { name: "OpenAI GPT", icon: "🧠", desc: "En gelişmiş yapay zeka modeli", color: "#10B981" },
                 { name: "CRM", icon: "📊", desc: "HubSpot, Salesforce, Zoho bağlantısı", color: "#F59E0B" },
                 { name: "Otomasyon", icon: "⚡", desc: "500+ uygulama ile otomasyon", color: "#8B5CF6" },
@@ -921,17 +921,18 @@ export default function Home() {
 
       {page === "privacy" && (
         <div style={{ maxWidth: 800, margin: "0 auto", padding: "52px 24px", position: "relative", zIndex: 1 }}>
-          <h1 style={{ fontSize: 36, fontWeight: 800, marginBottom: 24 }}>Gizlilik <span style={{ color: "#F59E0B" }}>Politikası</span></h1>
-          <p style={{ color: "rgba(255,255,255,0.35)", fontSize: 13, marginBottom: 32 }}>Son güncelleme: 12 Mart 2026</p>
+          <h1 style={{ fontSize: 36, fontWeight: 800, marginBottom: 24 }}>KVKK Ayd\u0131nlatma Metni & <span style={{ color: "#F59E0B" }}>Gizlilik Politikas\u0131</span></h1>
+          <p style={{ color: "rgba(255,255,255,0.35)", fontSize: 13, marginBottom: 32 }}>Son g\u00FCncelleme: 14 Mart 2026</p>
           {[
-            { title: "Veri Sorumlusu", content: "Asistania (İşletme Sahibi: Turhan Bağdat)\nAdres: Caddebulvarı Caddesi Mevlana Sokak No 10\nE-posta: bagdatturhan@gmail.com" },
-            { title: "Toplanan Veriler", content: "WhatsApp üzerinden: Telefon numarası, profil adı, mesaj içerikleri, mesaj zamanı.\nWeb sitesi üzerinden: Çerezler, IP adresi, tarayıcı bilgisi.\nÖdeme için: Ad-soyad, e-posta, telefon (ödeme bilgileri ödeme sağlayıcı tarafından işlenir)." },
-            { title: "Verilerin Kullanım Amacı", content: "• WhatsApp üzerinden yapay zeka destekli müşteri asistanı hizmeti sunmak\n• Mesajlarınızı yapay zeka (OpenAI) ile işleyerek uygun yanıtlar üretmek\n• Hizmet kalitesini artırmak ve teknik sorunları gidermek\n• Abonelik ve ödeme işlemlerini yürütmek" },
-            { title: "Veri Aktarımı", content: "Kişisel verileriniz aşağıdaki üçüncü taraflarla paylaşılmaktadır:\n• OpenAI Inc. (ABD) — Mesaj içerikleriniz yapay zeka yanıtı üretmek için gönderilir\n• Hetzner Online GmbH (Almanya) — Sunucu altyapımız\n• Cloudflare Inc. (ABD) — DNS ve güvenlik hizmetleri\n\n⚠️ Mesaj içerikleriniz ABD'deki OpenAI sunucularına aktarılmaktadır. Hizmetimizi kullanarak bu yurt dışı veri aktarımına açık rıza göstermiş sayılırsınız." },
-            { title: "Veri Güvenliği", content: "• Tüm iletişim SSL/TLS (HTTPS) ile şifrelenir\n• Sunucularımız Hetzner (Almanya, GDPR uyumlu) üzerindedir\n• Firewall ve güvenlik duvarı aktiftir\n• API anahtarları güçlü şifreleme ile korunur" },
-            { title: "Veri Saklama Süresi", content: "• Mesaj içerikleri: Hizmet süresi boyunca + abonelik iptalinden sonra 30 gün\n• Ödeme bilgileri: Yasal zorunluluk süresi (5 yıl)\n• Hesap bilgileri: Hesap silinene kadar" },
-            { title: "Haklarınız (KVKK Madde 11)", content: "• Kişisel verilerinizin işlenip işlenmediğini öğrenme\n• İşlenmişse buna ilişkin bilgi talep etme\n• İşlenme amacını öğrenme\n• Yurt içinde veya yurt dışında aktarıldığı üçüncü kişileri bilme\n• Eksik veya yanlış işlenmişse düzeltilmesini isteme\n• Silinmesini veya yok edilmesini isteme\n\nBaşvurularınızı bagdatturhan@gmail.com adresine iletebilirsiniz." },
-            { title: "Çocukların Gizliliği", content: "Hizmetimiz 18 yaşının altındaki bireylere yönelik değildir." },
+            { title: "Veri Sorumlusu", content: "Asistania (\u0130\u015Fletme Sahibi: Turhan Ba\u011Fdat)\nAdres: Caddebulvar\u0131 Caddesi Mevlana Sokak No 10\nE-posta: info@asistania.com" },
+            { title: "Toplanan Ki\u015Fisel Veriler", content: "\u2022 WhatsApp \u00FCzerinden: Telefon numaras\u0131, profil ad\u0131, mesaj i\u00E7erikleri, mesaj zaman damgalar\u0131\n\u2022 Web sitesi \u00FCzerinden: IP adresi, taray\u0131c\u0131 bilgisi, \u00E7erez verileri\n\u2022 Kay\u0131t/\u00F6deme i\u00E7in: Ad-soyad, e-posta, telefon (\u00F6deme bilgileri \u00F6deme sa\u011Flay\u0131c\u0131 taraf\u0131ndan i\u015Flenir, Asistania taraf\u0131ndan saklanmaz)" },
+            { title: "Verilerin \u0130\u015Flenme Amac\u0131", content: "\u2022 WhatsApp \u00FCzerinden AI destekli otomatik yan\u0131t \u00FCretmek\n\u2022 CRM kayd\u0131 ve m\u00FC\u015Fteri takibi\n\u2022 Randevu y\u00F6netimi\n\u2022 Hizmet kalitesi analiti\u011Fi\n\u2022 Abonelik ve \u00F6deme i\u015Flemlerini y\u00FCr\u00FCtmek" },
+            { title: "Veri Aktar\u0131m\u0131 (3. Taraf Hizmetler)", content: "\u2022 OpenAI Inc. (ABD) \u2014 Mesaj i\u00E7erikleri AI yan\u0131t \u00FCretmek i\u00E7in i\u015Flenir. OpenAI, API verilerini model e\u011Fitiminde kullanmaz.\n\u2022 Hetzner Online GmbH (Almanya) \u2014 Sunucu altyap\u0131s\u0131, GDPR uyumlu\n\u2022 Supabase Inc. (ABD) \u2014 CRM veritaban\u0131 ve kimlik do\u011Frulama\n\u2022 Cloudflare Inc. (ABD) \u2014 DNS ve g\u00FCvenlik hizmetleri\n\u2022 Vercel Inc. (ABD) \u2014 Web sitesi bar\u0131nd\u0131rma\n\n\u26A0\uFE0F Mesaj i\u00E7erikleriniz ABD\u2019deki sunuculara aktar\u0131lmaktad\u0131r. Hizmetimizi kullanarak bu yurt d\u0131\u015F\u0131 veri aktar\u0131m\u0131na a\u00E7\u0131k r\u0131za g\u00F6stermi\u015F say\u0131l\u0131rs\u0131n\u0131z." },
+            { title: "Veri Saklama ve Silinme", content: "\u2022 Mesaj verileri: Abonelik s\u00FCresi boyunca + iptal sonras\u0131 30 g\u00FCn i\u00E7inde silinir\n\u2022 Hesap bilgileri: Hesap silinene kadar\n\u2022 \u00D6deme kay\u0131tlar\u0131: 5 y\u0131l (yasal zorunluluk)\n\u2022 \u00C7erez verileri: Maksimum 12 ay" },
+            { title: "Veri G\u00FCvenli\u011Fi", content: "\u2022 T\u00FCm ileti\u015Fim SSL/TLS (HTTPS) ile \u015Fifrelenir\n\u2022 Sunucular Almanya\u2019da (Hetzner), GDPR uyumlu\n\u2022 Firewall ve rate limiting aktif\n\u2022 API anahtarlar\u0131 g\u00FC\u00E7l\u00FC \u015Fifreleme ile korunur\n\u2022 D\u00FCzenli yedekleme yap\u0131l\u0131r" },
+            { title: "Haklar\u0131n\u0131z (KVKK Madde 11)", content: "\u2022 Ki\u015Fisel verilerinizin i\u015Flenip i\u015Flenmedi\u011Fini \u00F6\u011Frenme\n\u2022 \u0130\u015Flenme amac\u0131n\u0131 ve amac\u0131na uygun kullan\u0131l\u0131p kullan\u0131lmad\u0131\u011F\u0131n\u0131 \u00F6\u011Frenme\n\u2022 Yurt i\u00E7inde veya yurt d\u0131\u015F\u0131nda aktar\u0131ld\u0131\u011F\u0131 \u00FC\u00E7\u00FCnc\u00FC ki\u015Fileri bilme\n\u2022 Eksik veya yanl\u0131\u015F i\u015Flenmi\u015Fse d\u00FCzeltilmesini isteme\n\u2022 Silinmesini veya yok edilmesini isteme\n\u2022 Otomatik analiz sonucu aleyhinize bir sonu\u00E7 \u00E7\u0131kmas\u0131na itiraz etme\n\nBa\u015Fvurular: info@asistania.com" },
+            { title: "\u00C7erez Politikas\u0131", content: "\u2022 Zorunlu \u00E7erezler: Sitenin \u00E7al\u0131\u015Fmas\u0131 i\u00E7in gerekli (onam gerekmez)\n\u2022 Analitik \u00E7erezler: Ziyaret\u00E7i istatistikleri (onay\u0131n\u0131za ba\u011Fl\u0131)\n\u2022 Reklam \u00E7erezleri: Meta Pixel, TikTok Pixel (onay\u0131n\u0131za ba\u011Fl\u0131)\n\nAnalitik ve reklam \u00E7erezleri, ancak onay\u0131n\u0131z al\u0131nd\u0131ktan sonra \u00E7al\u0131\u015Ft\u0131r\u0131l\u0131r. \u00C7erez tercihlerinizi istedi\u011Finiz zaman sayfan\u0131n alt\u0131ndaki \u2018\u00C7erez Tercihleri\u2019 linkinden de\u011Fi\u015Ftirebilirsiniz." },
+            { title: "\u00C7ocuklar\u0131n Gizlili\u011Fi", content: "Hizmetimiz 18 ya\u015F\u0131n alt\u0131ndaki bireylere y\u00F6nelik de\u011Fildir." },
           ].map(s => (
             <div key={s.title} style={{ marginBottom: 28 }}>
               <h3 style={{ fontSize: 18, fontWeight: 700, color: "#F59E0B", marginBottom: 10 }}>{s.title}</h3>
@@ -943,17 +944,19 @@ export default function Home() {
 
       {page === "terms" && (
         <div style={{ maxWidth: 800, margin: "0 auto", padding: "52px 24px", position: "relative", zIndex: 1 }}>
-          <h1 style={{ fontSize: 36, fontWeight: 800, marginBottom: 24 }}>Kullanım <span style={{ color: "#F59E0B" }}>Koşulları</span></h1>
-          <p style={{ color: "rgba(255,255,255,0.35)", fontSize: 13, marginBottom: 32 }}>Son güncelleme: 12 Mart 2026</p>
+          <h1 style={{ fontSize: 36, fontWeight: 800, marginBottom: 24 }}>Kullan\u0131m <span style={{ color: "#F59E0B" }}>Ko\u015Fullar\u0131</span></h1>
+          <p style={{ color: "rgba(255,255,255,0.35)", fontSize: 13, marginBottom: 32 }}>Son g\u00FCncelleme: 14 Mart 2026</p>
           {[
-            { title: "1. Hizmet Tanımı", content: "Asistania, işletmelere WhatsApp üzerinden yapay zeka destekli müşteri asistanı hizmeti sunan bir SaaS platformudur." },
-            { title: "2. Hizmet Kapsamı", content: "• WhatsApp numaranıza bağlı yapay zeka asistanı\n• 7/24 otomatik mesaj yanıtlama\n• Sektöre özel önceden yapılandırılmış asistan şablonları\n• Web paneli üzerinden yönetim (geliştirilmekte)" },
-            { title: "3. Abonelik ve Ödeme", content: "• Hizmet aylık abonelik modeliyle sunulur\n• Abonelik her ay otomatik yenilenir\n• İptal istediğiniz zaman yapılabilir, bir sonraki dönemden itibaren geçerli olur\n• Kısmi ay için iade yapılmaz" },
-            { title: "4. Kullanıcı Sorumlulukları", content: "• WhatsApp hizmet koşullarına uymak\n• Spam, toplu mesaj veya istenmeyen ileti göndermemek\n• Yasadışı, müstehcen veya tehdit içeren içerik paylaşmamak\n• Asistanı yasadışı amaçlarla kullanmamak\n• Hesap bilgilerini üçüncü kişilerle paylaşmamak" },
-            { title: "5. Yapay Zeka Yanıtları Hakkında", content: "⚠️ ÖNEMLİ: Yapay zeka tarafından üretilen yanıtlar bilgi amaçlıdır ve hata içerebilir. Tıbbi, hukuki veya mali konularda profesyonel danışmanlık yerine geçmez. Asistania, AI yanıtlarının doğruluğu veya eksiksizliği konusunda garanti vermez." },
-            { title: "6. Sorumluluk Sınırlaması", content: "• Asistania, yapay zeka yanıtlarından kaynaklanan dolaylı zararlardan sorumlu değildir\n• WhatsApp hesabının Meta tarafından engellenmesi durumunda Asistania sorumlu tutulamaz\n• Asistania'nın toplam sorumluluğu, müşterinin son 3 ayda ödediği toplam ücretle sınırlıdır" },
-            { title: "7. İptal ve İade", content: "• Abonelik istediğiniz zaman iptal edilebilir\n• İptal, mevcut dönemin sonunda geçerli olur\n• İptal sonrası verileriniz 30 gün içinde silinir\n• 14 gün içinde cayma hakkı (Tüketicinin Korunması Kanunu)" },
-            { title: "8. Uygulanacak Hukuk", content: "Bu koşullar Türkiye Cumhuriyeti kanunlarına tabidir. Uyuşmazlıklarda İstanbul Mahkemeleri ve İcra Daireleri yetkilidir." },
+            { title: "1. Hizmetin Niteli\u011Fi", content: "Hizmet, ticari/mesleki ama\u00E7larla i\u015Fletmelere sunulan bir yaz\u0131l\u0131m hizmetidir (SaaS). Kullan\u0131c\u0131, Hizmet\u2019i kendi ticari faaliyetleri kapsam\u0131nda kulland\u0131\u011F\u0131n\u0131 kabul eder." },
+            { title: "2. Abonelik Modeli ve Otomatik Yenileme", content: "Hizmet, ayl\u0131k abonelik modeliyle sunulur. Abonelik, Kullan\u0131c\u0131 taraf\u0131ndan iptal edilmedi\u011Fi s\u00FCrece her fatura d\u00F6neminde otomatik olarak yenilenir. \u00DCcretler, ilgili fatura d\u00F6neminin ba\u015F\u0131nda tahsil edilir." },
+            { title: "3. Paketler, Mesaj Limitleri ve Kota A\u015F\u0131m\u0131", content: "Paketler, fatura d\u00F6nemi ba\u015F\u0131na belirlenen mesaj limitleri ile sunulur. \u2018Mesaj\u2019, Hizmet\u2019in WhatsApp \u00FCzerinden Kullan\u0131c\u0131 ad\u0131na \u00FCretti\u011Fi ve g\u00F6nderdi\u011Fi her bir yan\u0131tt\u0131r.\n\nLimit a\u015F\u0131l\u0131rsa Hizmet d\u00F6nem sonuna kadar durdurulur veya k\u0131s\u0131tlan\u0131r. Yeni fatura d\u00F6neminde limitler yenilenir. Kullan\u0131c\u0131, ayn\u0131 d\u00F6nem i\u00E7inde \u00FCst pakete ge\u00E7erek Hizmet\u2019i yeniden aktif edebilir." },
+            { title: "4. \u0130ptal, D\u00F6nem Sonu Ge\u00E7erlilik ve \u0130ade", content: "Kullan\u0131c\u0131 aboneli\u011Fini diledi\u011Fi zaman iptal edebilir. \u0130ptal, i\u00E7inde bulunulan fatura d\u00F6neminin sonunda h\u00FCk\u00FCm do\u011Furur. K\u0131smi d\u00F6nem iadesi yap\u0131lmaz; kullan\u0131lmayan s\u00FCreler i\u00E7in \u00FCcret iadesi veya mahsup uygulanmaz.\n\n\u0130ptal sonras\u0131 verileriniz 30 g\u00FCn i\u00E7inde silinir." },
+            { title: "5. Kullan\u0131c\u0131 Sorumluluklar\u0131", content: "\u2022 WhatsApp hizmet ko\u015Fullar\u0131na uymak\n\u2022 Spam, toplu mesaj veya istenmeyen ileti g\u00F6ndermemek\n\u2022 Yasad\u0131\u015F\u0131, m\u00FCstehcen veya tehdit i\u00E7eren i\u00E7erik payla\u015Fmamak\n\u2022 Asistan\u0131 yasad\u0131\u015F\u0131 ama\u00E7larla kullanmamak\n\u2022 Hesap bilgilerini \u00FC\u00E7\u00FCnc\u00FC ki\u015Filerle payla\u015Fmamak" },
+            { title: "6. WhatsApp Ba\u011Flant\u0131s\u0131 (QR) ve Sorumluluklar", content: "Kullan\u0131c\u0131, Hizmet\u2019e ba\u011Flad\u0131\u011F\u0131 WhatsApp/WhatsApp Business hesab\u0131 ve numaras\u0131 \u00FCzerinde yetkili oldu\u011Funu kabul eder. QR ile e\u015Fle\u015Ftirme, hesap g\u00FCvenli\u011Fi ve WhatsApp hesab\u0131n\u0131n kullan\u0131m\u0131ndan do\u011Fan sorumluluk Kullan\u0131c\u0131\u2019ya aittir.\n\nWhatsApp/Meta kaynakl\u0131 kesintiler, limitler, politika de\u011Fi\u015Fiklikleri veya yapt\u0131r\u0131mlar nedeniyle ya\u015Fanabilecek hizmet k\u0131s\u0131tlar\u0131 \u015Eirket\u2019in kontrol\u00FC d\u0131\u015F\u0131ndad\u0131r.\n\n\u00D6nemli: Hizmetimiz WhatsApp Web QR ba\u011Flant\u0131s\u0131 kullan\u0131r. Resmi WhatsApp Business API (Meta Cloud API) kullanmamaktad\u0131r." },
+            { title: "7. 3. Taraf Hizmetler ve AI \u00C7\u0131kt\u0131lar\u0131", content: "Hizmet kapsam\u0131nda yapay zek\u00E2, bar\u0131nd\u0131rma ve entegrasyon sa\u011Flay\u0131c\u0131lar\u0131 (OpenAI, Supabase, CRM servisleri) kullan\u0131labilir; veriler yaln\u0131zca hizmetin sa\u011Flanmas\u0131 amac\u0131yla i\u015Flenir/aktar\u0131l\u0131r.\n\nYapay zek\u00E2 taraf\u0131ndan \u00FCretilen yan\u0131tlar otomatik i\u00E7eriktir; do\u011Fruluk/uygunluk garanti edilmez. T\u0131bbi, hukuki veya mali konularda profesyonel dan\u0131\u015Fmanl\u0131k yerine ge\u00E7mez. Kullan\u0131c\u0131, m\u00FC\u015Fterilerine g\u00F6nderilen i\u00E7eriklerin nihai kontrol ve sorumlulu\u011Funun kendisine ait oldu\u011Funu kabul eder." },
+            { title: "8. Sorumluluk S\u0131n\u0131r\u0131 ve Dolayl\u0131 Zararlar", content: "Hizmet \u201Coldu\u011Fu gibi\u201D sunulur. \u015Eirket; kesintisiz, hatas\u0131z veya belirli bir amaca tamamen uygun \u00E7al\u0131\u015Fma taahh\u00FCd\u00FCnde bulunmaz.\n\n\u015Eirket, hi\u00E7bir durumda dolayl\u0131 zararlardan (k\u00E2r kayb\u0131, itibar kayb\u0131, i\u015F kayb\u0131, veri kayb\u0131, beklenen tasarrufun ger\u00E7ekle\u015Fmemesi, \u00FC\u00E7\u00FCnc\u00FC ki\u015Fi talepleri vb.) sorumlu tutulamaz.\n\n\u015Eirket\u2019in toplam sorumlulu\u011Fu, sorumluluğa konu olay\u0131n meydana geldi\u011Fi tarihten \u00F6nceki 1 (bir) ayl\u0131k abonelik bedeli ile s\u0131n\u0131rl\u0131d\u0131r." },
+            { title: "9. SLA (Hizmet Seviyesi) \u2014 Yaln\u0131zca Kurumsal Paket", content: "SLA taahh\u00FCd\u00FC yaln\u0131zca Kurumsal paket i\u00E7in ge\u00E7erlidir. SLA kapsam\u0131; eri\u015Filebilirlik hedefi, \u00F6l\u00E7\u00FCm y\u00F6ntemi, planl\u0131 bak\u0131m pencereleri, istisnalar ve telafi ko\u015Fullar\u0131 ayr\u0131 SLA dok\u00FCman\u0131nda d\u00FCzenlenir.\n\nSLA d\u0131\u015F\u0131 durumlar: Planl\u0131 bak\u0131m, WhatsApp/Meta kaynakl\u0131 kesintiler, m\u00FCcbir sebepler, Kullan\u0131c\u0131 kaynakl\u0131 hatalar." },
+            { title: "10. Uygulanacak Hukuk", content: "Bu ko\u015Fullar T\u00FCrkiye Cumhuriyeti kanunlar\u0131na tabidir. Uyu\u015Fmazl\u0131klarda \u0130stanbul Mahkemeleri ve \u0130cra Daireleri yetkilidir." },
           ].map(s => (
             <div key={s.title} style={{ marginBottom: 28 }}>
               <h3 style={{ fontSize: 18, fontWeight: 700, color: "#F59E0B", marginBottom: 10 }}>{s.title}</h3>
@@ -967,14 +970,16 @@ export default function Home() {
         <div style={{ display: "flex", justifyContent: "center", gap: 20, marginBottom: 14 }}>
           {NAV.map(n => <button key={n.id} onClick={() => setPage(n.id)} style={{ background: "none", border: "none", color: "rgba(255,255,255,0.35)", fontSize: 13, cursor: "pointer" }}>{n.label}</button>)}
         </div>
-        <div style={{ display: "flex", justifyContent: "center", gap: 16, marginBottom: 14 }}>
-          <button onClick={() => setPage("privacy")} style={{ background: "none", border: "none", color: "rgba(255,255,255,0.25)", fontSize: 12, cursor: "pointer" }}>Gizlilik Politikası</button>
+        <div style={{ display: "flex", justifyContent: "center", gap: 16, flexWrap: "wrap", marginBottom: 14 }}>
+          <button onClick={() => setPage("privacy")} style={{ background: "none", border: "none", color: "rgba(255,255,255,0.25)", fontSize: 12, cursor: "pointer" }}>KVKK & Gizlilik</button>
           <span style={{ color: "rgba(255,255,255,0.15)" }}>|</span>
-          <button onClick={() => setPage("terms")} style={{ background: "none", border: "none", color: "rgba(255,255,255,0.25)", fontSize: 12, cursor: "pointer" }}>Kullanım Koşulları</button>
+          <button onClick={() => setPage("terms")} style={{ background: "none", border: "none", color: "rgba(255,255,255,0.25)", fontSize: 12, cursor: "pointer" }}>Kullan\u0131m Ko\u015Fullar\u0131</button>
           <span style={{ color: "rgba(255,255,255,0.15)" }}>|</span>
-          <button onClick={() => setPage("contact")} style={{ background: "none", border: "none", color: "rgba(255,255,255,0.25)", fontSize: 12, cursor: "pointer" }}>İletişim</button>
+          <button onClick={() => { setCookieConsent(null); }} style={{ background: "none", border: "none", color: "rgba(255,255,255,0.25)", fontSize: 12, cursor: "pointer" }}>\u00C7erez Tercihleri</button>
+          <span style={{ color: "rgba(255,255,255,0.15)" }}>|</span>
+          <button onClick={() => setPage("contact")} style={{ background: "none", border: "none", color: "rgba(255,255,255,0.25)", fontSize: 12, cursor: "pointer" }}>\u0130leti\u015Fim</button>
         </div>
-        <p style={{ color: "rgba(255,255,255,0.2)", fontSize: 12, margin: 0 }}>© 2026 Asistania — WhatsApp AI Asistan</p>
+        <p style={{ color: "rgba(255,255,255,0.2)", fontSize: 12, margin: 0 }}>\u00A9 2026 Asistania \u2014 WhatsApp AI Asistan | B2B SaaS Hizmeti</p>
       </footer>
 
       {selectedPlan && <Wizard plan={selectedPlan} onClose={() => setSelectedPlan(null)} />}
