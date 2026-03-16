@@ -135,7 +135,7 @@ function Wizard({ plan, onClose }) {
           {step === 1 && (
             <div>
               <h4 style={{ color: "#fff", fontSize: 16, marginBottom: 18 }}>Sektörünüzü Seçin</h4>
-              <div style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 10, marginBottom: 22 }}>
+              <div className="grid-3" style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 10, marginBottom: 22 }}>
                 {SECTORS.map(s => (
                   <button key={s.id} onClick={() => setSector(s.id)} style={{ background: sector === s.id ? "rgba(245,158,11,0.15)" : "rgba(255,255,255,0.02)", border: sector === s.id ? "2px solid #F59E0B" : "1px solid rgba(255,255,255,0.07)", borderRadius: 14, padding: "16px 10px", cursor: "pointer", textAlign: "center" }}>
                     <div style={{ fontSize: 26, marginBottom: 5 }}>{s.icon}</div>
@@ -423,7 +423,26 @@ export default function Home() {
   const NAV = [{ id: "home", label: "Ana Sayfa" }, { id: "demo", label: "Canlı Demo" }, { id: "reviews", label: "Referanslar" }, { id: "blog", label: "Blog" }, { id: "faq", label: "SSS" }, { id: "contact", label: "İletişim" }];
 
   return (
-    <div style={{ minHeight: "100vh", background: "#060610", color: "#fff", fontFamily: "system-ui,sans-serif" }}>
+    <div style={{ minHeight: "100vh", background: "#060610", color: "#fff", fontFamily: "system-ui,sans-serif", overflowX: "hidden" }}>
+      <style dangerouslySetInnerHTML={{ __html: `
+        * { box-sizing: border-box; }
+        html, body { margin: 0; padding: 0; overflow-x: hidden; width: 100%; }
+        @media (max-width: 768px) {
+          .grid-3 { grid-template-columns: 1fr !important; }
+          .grid-4 { grid-template-columns: 1fr 1fr !important; }
+          .grid-2 { grid-template-columns: 1fr !important; }
+          .hero-grid { grid-template-columns: 1fr !important; text-align: center; }
+          .hero-title { font-size: 32px !important; }
+          .nav-links { display: none !important; }
+          .nav-login { margin-left: 0 !important; }
+          .dashboard-grid { grid-template-columns: 1fr 1fr !important; }
+          .footer-links { flex-direction: column !important; gap: 8px !important; }
+        }
+        @media (max-width: 480px) {
+          .grid-4 { grid-template-columns: 1fr !important; }
+          .dashboard-grid { grid-template-columns: 1fr !important; }
+        }
+      ` }} />
       <div style={{ position: "fixed", inset: 0, background: "radial-gradient(ellipse 80% 50% at 50% 0%, rgba(245,158,11,0.07) 0%, transparent 60%)", pointerEvents: "none", zIndex: 0 }} />
 
       <nav style={{ position: "sticky", top: 0, zIndex: 100, padding: "0 28px", height: 60, display: "flex", justifyContent: "space-between", alignItems: "center", background: "rgba(6,6,16,0.88)", backdropFilter: "blur(20px)", borderBottom: "1px solid rgba(255,255,255,0.05)" }}>
@@ -431,7 +450,7 @@ export default function Home() {
           <div style={{ width: 34, height: 34, background: "linear-gradient(135deg,#F59E0B,#EF4444)", borderRadius: 9, display: "flex", alignItems: "center", justifyContent: "center", fontWeight: 800, fontSize: 16, color: "#fff" }}>A</div>
           <span style={{ fontSize: 18, fontWeight: 700, color: "#fff" }}>Asistan<span style={{ color: "#F59E0B" }}>AI</span></span>
         </button>
-        <div style={{ display: "flex", gap: 6, alignItems: "center" }}>
+        <div className="nav-links" style={{ display: "flex", gap: 6, alignItems: "center" }}>
           {NAV.map(n => (
             <button key={n.id} onClick={() => setPage(n.id)} style={{ padding: "7px 14px", borderRadius: 8, border: "none", background: page === n.id ? "rgba(245,158,11,0.12)" : "transparent", color: page === n.id ? "#F59E0B" : "rgba(255,255,255,0.55)", cursor: "pointer", fontSize: 13, fontWeight: page === n.id ? 700 : 400 }}>{n.label}</button>
           ))}
@@ -441,13 +460,13 @@ export default function Home() {
 
       {page === "home" && (
         <div style={{ position: "relative", zIndex: 1 }}>
-          <section style={{ padding: "80px 24px 60px", maxWidth: 1080, margin: "0 auto", display: "grid", gridTemplateColumns: "1fr 1fr", gap: 52, alignItems: "center" }}>
+          <section className="hero-grid" style={{ padding: "80px 24px 60px", maxWidth: 1080, margin: "0 auto", display: "grid", gridTemplateColumns: "1fr 1fr", gap: 52, alignItems: "center" }}>
             <div>
               <div style={{ display: "inline-flex", alignItems: "center", gap: 7, background: "rgba(245,158,11,0.1)", border: "1px solid rgba(245,158,11,0.2)", borderRadius: 100, padding: "5px 14px", marginBottom: 22 }}>
                 <span style={{ width: 5, height: 5, borderRadius: "50%", background: "#10B981" }} />
                 <span style={{ fontSize: 11, color: "#F59E0B", fontWeight: 600 }}>IA WhatsApp Destekli</span>
               </div>
-              <h1 style={{ fontSize: 46, fontWeight: 800, lineHeight: 1.1, marginBottom: 18, letterSpacing: -1 }}>
+              <h1 className="hero-title" style={{ fontSize: 46, fontWeight: 800, lineHeight: 1.1, marginBottom: 18, letterSpacing: -1 }}>
                 Dakikalar İçinde<br />
                 <span style={{ background: "linear-gradient(135deg,#F59E0B,#EF4444)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>AI WhatsApp</span><br />
                 Asistanınız Hazır
@@ -486,7 +505,7 @@ export default function Home() {
               <h2 style={{ fontSize: 36, fontWeight: 700, marginBottom: 10 }}>Nasıl <span style={{ color: "#F59E0B" }}>Çalışır?</span></h2>
               <p style={{ color: "rgba(255,255,255,0.4)", fontSize: 15 }}>3 basit adımda WhatsApp AI asistanınız hazır.</p>
             </div>
-            <div style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 24 }}>
+            <div className="grid-3" style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 24 }}>
               {[
                 { step: "01", icon: "📋", title: "Bilgilerinizi Girin", desc: "İşletme adı, hizmetler, çalışma saatleri ve sektörünüzü seçin. 2 dakikada tamamlayın." },
                 { step: "02", icon: "📱", title: "WhatsApp'ı Bağlayın", desc: "QR kodu telefonunuzdan okutun. İşletme WhatsApp numaranız anında aktif olsun." },
@@ -508,7 +527,7 @@ export default function Home() {
               <h2 style={{ fontSize: 36, fontWeight: 700, marginBottom: 10 }}>Kullanım <span style={{ color: "#F59E0B" }}>Senaryoları</span></h2>
               <p style={{ color: "rgba(255,255,255,0.4)", fontSize: 15 }}>Her sektörde gerçek sonuçlar üreten AI asistan.</p>
             </div>
-            <div style={{ display: "grid", gridTemplateColumns: "repeat(2,1fr)", gap: 16 }}>
+            <div className="grid-2" style={{ display: "grid", gridTemplateColumns: "repeat(2,1fr)", gap: 16 }}>
               {[
                 { icon: "🏠", sector: "Emlak", scenario: "Müşteri: \"Kadıköy'de 3+1 arıyorum\"\nAI: Bütçe ve mahalle sorar, portföyden eşleştirir, görüntüleme randevusu oluşturur.", result: "Aylık 40+ yeni lead" },
                 { icon: "🏥", sector: "Diş Kliniği", scenario: "Hasta: \"Diş beyazlatma fiyatı ne?\"\nAI: Fiyat aralığı verir, muayene önerir, randevu oluşturur.", result: "Randevularda %35 artış" },
@@ -535,7 +554,7 @@ export default function Home() {
               <h2 style={{ fontSize: 36, fontWeight: 700, marginBottom: 10 }}>Güçlü <span style={{ color: "#F59E0B" }}>Entegrasyonlar</span></h2>
               <p style={{ color: "rgba(255,255,255,0.4)", fontSize: 15 }}>En iyi teknolojilerle sorunsuz çalışır.</p>
             </div>
-            <div style={{ display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: 16 }}>
+            <div className="grid-4" style={{ display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: 16 }}>
               {[
                 { name: "WhatsApp", icon: "💬", desc: "WhatsApp Business Web entegrasyonu (QR bağlantı)", color: "#25D366" },
                 { name: "OpenAI GPT", icon: "🧠", desc: "En gelişmiş yapay zeka modeli", color: "#10B981" },
@@ -566,7 +585,7 @@ export default function Home() {
               <h2 style={{ fontSize: 36, fontWeight: 700, marginBottom: 10 }}><span style={{ color: "#F59E0B" }}>Fiyatlandırma</span></h2>
               <p style={{ color: "rgba(255,255,255,0.4)", fontSize: 15 }}>İşletmenize uygun paketi seçin, 7 gün ücretsiz deneyin.</p>
             </div>
-            <div style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 20 }}>
+            <div className="grid-3" style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 20 }}>
               {PLANS.map(plan => (
                 <div key={plan.id} style={{ background: plan.popular ? "linear-gradient(180deg,rgba(245,158,11,0.08),rgba(6,6,16,1) 50%)" : "rgba(255,255,255,0.02)", border: plan.popular ? "1px solid rgba(245,158,11,0.3)" : "1px solid rgba(255,255,255,0.06)", borderRadius: 22, padding: 28, position: "relative", display: "flex", flexDirection: "column" }}>
                   {plan.popular && <div style={{ position: "absolute", top: -1, left: "50%", transform: "translateX(-50%)", background: "linear-gradient(135deg,#F59E0B,#D97706)", color: "#000", padding: "5px 18px", borderRadius: "0 0 10px 10px", fontSize: 10, fontWeight: 700 }}>EN POPÜLER</div>}
@@ -596,7 +615,7 @@ export default function Home() {
               <h2 style={{ fontSize: 36, fontWeight: 700, marginBottom: 10 }}>Sektörünüze Özel <span style={{ color: "#F59E0B" }}>Hazır AI Şablonlar</span></h2>
               <p style={{ color: "rgba(255,255,255,0.4)", fontSize: 15 }}>Her sektör için optimize edilmiş yapay zeka asistanı. Bilgilerinizi girin, anında çalışsın.</p>
             </div>
-            <div style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 16 }}>
+            <div className="grid-3" style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 16 }}>
               {SECTORS.map(s => (
                 <div key={s.id} style={{ background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.07)", borderRadius: 18, padding: 24, textAlign: "center", cursor: "pointer", transition: "all 0.3s ease" }} onMouseEnter={e => { e.currentTarget.style.borderColor = "rgba(245,158,11,0.3)"; e.currentTarget.style.background = "rgba(245,158,11,0.05)"; }} onMouseLeave={e => { e.currentTarget.style.borderColor = "rgba(255,255,255,0.07)"; e.currentTarget.style.background = "rgba(255,255,255,0.02)"; }}>
                   <div style={{ fontSize: 36, marginBottom: 12 }}>{s.icon}</div>
@@ -619,7 +638,7 @@ export default function Home() {
             <div style={{ textAlign: "center", marginBottom: 36 }}>
               <h2 style={{ fontSize: 32, fontWeight: 700, marginBottom: 10 }}>Müşterilerimiz <span style={{ color: "#F59E0B" }}>Ne Diyor?</span></h2>
             </div>
-            <div style={{ display: "grid", gridTemplateColumns: "repeat(2,1fr)", gap: 16, marginBottom: 24 }}>
+            <div className="grid-2" style={{ display: "grid", gridTemplateColumns: "repeat(2,1fr)", gap: 16, marginBottom: 24 }}>
               {REVIEWS.map(r => (
                 <div key={r.id} style={{ background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.07)", borderRadius: 18, padding: 22 }}>
                   <div style={{ display: "inline-flex", background: `${r.color}15`, border: `1px solid ${r.color}30`, borderRadius: 7, padding: "3px 10px", fontSize: 10, color: r.color, fontWeight: 700, marginBottom: 12 }}>✦ {r.highlight}</div>
@@ -662,7 +681,7 @@ export default function Home() {
               ))}
             </div>
           </div>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(2,1fr)", gap: 18, marginBottom: 40 }}>
+          <div className="grid-2" style={{ display: "grid", gridTemplateColumns: "repeat(2,1fr)", gap: 18, marginBottom: 40 }}>
             {REVIEWS.map(r => (
               <div key={r.id} style={{ background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.07)", borderRadius: 20, padding: 24 }}>
                 <div style={{ display: "inline-flex", background: `${r.color}15`, border: `1px solid ${r.color}30`, borderRadius: 7, padding: "3px 10px", fontSize: 10, color: r.color, fontWeight: 700, marginBottom: 14 }}>✦ {r.highlight}</div>
@@ -752,7 +771,7 @@ export default function Home() {
           <h1 style={{ fontSize: 42, fontWeight: 800, marginBottom: 12 }}>Canlı <span style={{ background: "linear-gradient(135deg,#25D366,#128C7E)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>Demo</span></h1>
           <p style={{ color: "rgba(255,255,255,0.5)", fontSize: 16, lineHeight: 1.7, marginBottom: 36 }}>AI asistanımızı şimdi test edin. WhatsApp'tan mesaj gönderin, yapay zekanın gücünü deneyimleyin. Ücretsiz, kayıt gerektirmez.</p>
           <button onClick={() => window.open("https://wa.me/905327834244?text=Merhaba%2C%20demo%20g%C3%B6rmek%20istiyorum", "_blank")} style={{ background: "linear-gradient(135deg,#25D366,#128C7E)", color: "#fff", border: "none", padding: "18px 42px", borderRadius: 14, fontWeight: 700, fontSize: 17, cursor: "pointer", boxShadow: "0 4px 24px rgba(37,211,102,0.35)", marginBottom: 48 }}>💬 WhatsApp'ta Deneyin →</button>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 16, marginTop: 20 }}>
+          <div className="grid-3" style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 16, marginTop: 20 }}>
             {[
               { icon: "⚡", title: "Anında Yanıt", desc: "Mesajınıza saniyeler içinde cevap alın" },
               { icon: "🧠", title: "Akıllı Diyalog", desc: "Sorularınızı anlayan gerçek AI" },
@@ -774,7 +793,7 @@ export default function Home() {
             <h1 style={{ fontSize: 42, fontWeight: 800, marginBottom: 12 }}>Bize <span style={{ background: "linear-gradient(135deg,#F59E0B,#EF4444)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>Ulaşın</span></h1>
             <p style={{ color: "rgba(255,255,255,0.4)", fontSize: 15 }}>Sorularınız için bize her kanaldan ulaşabilirsiniz.</p>
           </div>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(2,1fr)", gap: 16, marginBottom: 32 }}>
+          <div className="grid-2" style={{ display: "grid", gridTemplateColumns: "repeat(2,1fr)", gap: 16, marginBottom: 32 }}>
             {[
               { icon: "💬", title: "WhatsApp", desc: "En hızlı iletişim kanalı", action: "Mesaj Gönder", link: "https://wa.me/905327834244?text=Merhaba%2C%20bilgi%20almak%20istiyorum", color: "#25D366" },
               { icon: "✉️", title: "E-posta", desc: "info@asistania.com", action: "Mail Gönder", link: "mailto:info@asistania.com", color: "#F59E0B" },
@@ -872,7 +891,7 @@ export default function Home() {
             <button onClick={() => { setAuthUser(null); setPage("home"); }} style={{ padding: "9px 18px", background: "rgba(239,68,68,0.1)", border: "1px solid rgba(239,68,68,0.2)", borderRadius: 10, color: "#EF4444", fontSize: 13, fontWeight: 600, cursor: "pointer" }}>Çıkış Yap</button>
           </div>
 
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: 16, marginBottom: 32 }}>
+          <div className="grid-4" style={{ display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: 16, marginBottom: 32 }}>
             {[
               { label: "Toplam Mesaj", value: dashData.totalMessages, icon: "💬", color: "#F59E0B" },
               { label: "Bugün", value: dashData.todayMessages, icon: "📅", color: "#10B981" },
