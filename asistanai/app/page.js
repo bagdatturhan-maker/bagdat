@@ -721,7 +721,10 @@ export default function Home() {
                       </div>
                     ))}
                   </div>
-                  <button onClick={() => setSelectedPlan(plan)} style={{ marginTop: 22, width: "100%", padding: "13px 0", background: plan.popular ? "linear-gradient(135deg,#F59E0B,#D97706)" : "rgba(255,255,255,0.05)", color: plan.popular ? "#000" : "#fff", border: plan.popular ? "none" : "1px solid rgba(255,255,255,0.1)", borderRadius: 11, fontWeight: 700, fontSize: 14, cursor: "pointer" }}>
+                  <button onClick={() => {
+                    const links = { starter: "https://www.shopier.com/asistania/45384551", professional: "https://www.shopier.com/asistania/45384613", enterprise: "https://www.shopier.com/asistania/45384668" };
+                    window.open(links[plan.id], "_blank");
+                  }} style={{ marginTop: 22, width: "100%", padding: "13px 0", background: plan.popular ? "linear-gradient(135deg,#F59E0B,#D97706)" : "rgba(255,255,255,0.05)", color: plan.popular ? "#000" : "#fff", border: plan.popular ? "none" : "1px solid rgba(255,255,255,0.1)", borderRadius: 11, fontWeight: 700, fontSize: 14, cursor: "pointer" }}>
                     {plan.popular ? "Hemen Başla" : plan.id === "starter" ? "Başla" : "İletişime Geç"}
                   </button>
                 </div>
