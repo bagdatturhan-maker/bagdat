@@ -4,7 +4,7 @@ import { useState, useEffect, useRef } from "react";
 const PLANS = [
   { id: "starter", name: "Başlangıç", price: "₺499", period: "/ay", color: "#10B981", features: ["1 WhatsApp Hattı", "500 mesaj/ay", "AI Asistan 7/24", "Sektörel hazır şablon", "E-posta desteği"], popular: false },
   { id: "professional", name: "Profesyonel", price: "₺1.299", period: "/ay", color: "#F59E0B", features: ["1 WhatsApp Hattı", "2.000 mesaj/ay", "AI Asistan 7/24", "Özel prompt ayarlama", "Google Takvim", "CRM entegrasyonu", "Öncelikli destek"], popular: true },
-  { id: "enterprise", name: "Kurumsal", price: "₺2.999", period: "/ay", color: "#8B5CF6", features: ["3 WhatsApp Hattı", "Sınırsız mesaj", "Özel AI eğitimi", "Google Takvim + CRM", "API erişimi", "Dedicated yönetici", "SLA garantisi"], popular: false },
+  { id: "enterprise", name: "Kurumsal", price: "₺2.999", period: "/ay", color: "#8B5CF6", features: ["3 WhatsApp Hattı", "Sınırsız mesaj", "Sesli AI Asistan (200 dk/ay)", "Özel AI eğitimi", "Google Takvim + CRM", "API erişimi", "Dedicated yönetici", "SLA garantisi"], popular: false },
 ];
 
 const SECTORS = [
@@ -567,6 +567,125 @@ export default function Home() {
                   <p style={{ color: "rgba(255,255,255,0.4)", fontSize: 12, lineHeight: 1.6 }}>{i.desc}</p>
                 </div>
               ))}
+            </div>
+          </section>
+
+
+          {/* VOICE AI */}
+          <section style={{ padding: "80px 24px", maxWidth: 1080, margin: "0 auto" }}>
+            <div style={{ textAlign: "center", marginBottom: 48 }}>
+              <div style={{ display: "inline-flex", alignItems: "center", gap: 8, background: "rgba(139,92,246,0.1)", border: "1px solid rgba(139,92,246,0.2)", borderRadius: 50, padding: "6px 16px", marginBottom: 20 }}>
+                <span style={{ width: 6, height: 6, borderRadius: 3, background: "#8B5CF6" }} />
+                <span style={{ fontSize: 11, color: "#8B5CF6", fontWeight: 600 }}>{"YENİ"}</span>
+              </div>
+              <h2 style={{ fontSize: 36, fontWeight: 700, marginBottom: 10 }}>{"Sesli "}<span style={{ color: "#8B5CF6" }}>{"AI Asistan"}</span></h2>
+              <p style={{ color: "rgba(255,255,255,0.4)", fontSize: 15, maxWidth: 600, margin: "0 auto" }}>{"Müşterileriniz aradığında yapay zeka sesli olarak cevap verir. Randevu alır, bilgi verir, yönlendirir."}</p>
+            </div>
+
+            <div className="grid-2" style={{ display: "grid", gridTemplateColumns: "repeat(2,1fr)", gap: 32, alignItems: "center" }}>
+              {/* Sol: Animasyonlu Voice AI Grafiği */}
+              <div style={{ background: "linear-gradient(135deg, rgba(139,92,246,0.08), rgba(245,158,11,0.05))", border: "1px solid rgba(139,92,246,0.2)", borderRadius: 24, padding: 32, position: "relative", overflow: "hidden" }}>
+                {/* Ses Dalgası SVG */}
+                <svg viewBox="0 0 400 200" style={{ width: "100%", height: "auto" }}>
+                  <defs>
+                    <linearGradient id="voiceGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                      <stop offset="0%" stopColor="#8B5CF6" />
+                      <stop offset="50%" stopColor="#F59E0B" />
+                      <stop offset="100%" stopColor="#10B981" />
+                    </linearGradient>
+                  </defs>
+                  {/* Arka plan daireler */}
+                  <circle cx="200" cy="100" r="80" fill="none" stroke="rgba(139,92,246,0.1)" strokeWidth="1" />
+                  <circle cx="200" cy="100" r="60" fill="none" stroke="rgba(139,92,246,0.15)" strokeWidth="1" />
+                  <circle cx="200" cy="100" r="40" fill="none" stroke="rgba(139,92,246,0.2)" strokeWidth="1" />
+                  {/* Mikrofon ikonu */}
+                  <rect x="190" y="70" width="20" height="35" rx="10" fill="url(#voiceGrad)" opacity="0.9" />
+                  <path d="M175 95 Q175 120 200 120 Q225 120 225 95" fill="none" stroke="url(#voiceGrad)" strokeWidth="2.5" />
+                  <line x1="200" y1="120" x2="200" y2="135" stroke="url(#voiceGrad)" strokeWidth="2.5" />
+                  <line x1="185" y1="135" x2="215" y2="135" stroke="url(#voiceGrad)" strokeWidth="2.5" strokeLinecap="round" />
+                  {/* Ses dalgaları - sol */}
+                  <path d="M155 80 Q150 100 155 120" fill="none" stroke="#8B5CF6" strokeWidth="2" opacity="0.6">
+                    <animate attributeName="opacity" values="0.2;0.8;0.2" dur="1.5s" repeatCount="indefinite" />
+                  </path>
+                  <path d="M140 70 Q130 100 140 130" fill="none" stroke="#8B5CF6" strokeWidth="2" opacity="0.4">
+                    <animate attributeName="opacity" values="0.1;0.6;0.1" dur="1.5s" begin="0.3s" repeatCount="indefinite" />
+                  </path>
+                  <path d="M125 60 Q110 100 125 140" fill="none" stroke="#8B5CF6" strokeWidth="2" opacity="0.2">
+                    <animate attributeName="opacity" values="0.05;0.4;0.05" dur="1.5s" begin="0.6s" repeatCount="indefinite" />
+                  </path>
+                  {/* Ses dalgaları - sağ */}
+                  <path d="M245 80 Q250 100 245 120" fill="none" stroke="#F59E0B" strokeWidth="2" opacity="0.6">
+                    <animate attributeName="opacity" values="0.2;0.8;0.2" dur="1.5s" repeatCount="indefinite" />
+                  </path>
+                  <path d="M260 70 Q270 100 260 130" fill="none" stroke="#F59E0B" strokeWidth="2" opacity="0.4">
+                    <animate attributeName="opacity" values="0.1;0.6;0.1" dur="1.5s" begin="0.3s" repeatCount="indefinite" />
+                  </path>
+                  <path d="M275 60 Q290 100 275 140" fill="none" stroke="#F59E0B" strokeWidth="2" opacity="0.2">
+                    <animate attributeName="opacity" values="0.05;0.4;0.05" dur="1.5s" begin="0.6s" repeatCount="indefinite" />
+                  </path>
+                  {/* Alt ses barları */}
+                  {[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14].map((i) => (
+                    <rect key={i} x={120 + i * 12} y={160} width={6} rx={3} fill="url(#voiceGrad)" opacity="0.7">
+                      <animate attributeName="height" values={`${8 + Math.random()*15};${20 + Math.random()*20};${8 + Math.random()*15}`} dur={`${0.8 + Math.random()*0.8}s`} repeatCount="indefinite" />
+                      <animate attributeName="y" values={`${160 - (8 + Math.random()*15)/2};${160 - (20 + Math.random()*20)/2};${160 - (8 + Math.random()*15)/2}`} dur={`${0.8 + Math.random()*0.8}s`} repeatCount="indefinite" />
+                    </rect>
+                  ))}
+                  {/* AI yazısı */}
+                  <text x="200" y="190" textAnchor="middle" fill="rgba(255,255,255,0.3)" fontSize="11" fontWeight="600">{"VOICE AI ACTIVE"}</text>
+                </svg>
+                {/* Durum göstergesi */}
+                <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 8, marginTop: 16 }}>
+                  <div style={{ width: 8, height: 8, borderRadius: 4, background: "#10B981", boxShadow: "0 0 12px rgba(16,185,129,0.6)" }}>
+                  </div>
+                  <span style={{ fontSize: 12, color: "#10B981", fontWeight: 600 }}>{"Sesli Asistan Aktif — Türkçe"}</span>
+                </div>
+              </div>
+
+              {/* Sağ: Özellikler + Sohbet örneği */}
+              <div>
+                {/* Telefon sohbet örneği */}
+                <div style={{ background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.07)", borderRadius: 18, padding: 22, marginBottom: 20 }}>
+                  <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 16, paddingBottom: 12, borderBottom: "1px solid rgba(255,255,255,0.06)" }}>
+                    <div style={{ width: 36, height: 36, borderRadius: 10, background: "linear-gradient(135deg,#8B5CF6,#6D28D9)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 16 }}>{"🎙️"}</div>
+                    <div>
+                      <div style={{ fontWeight: 600, fontSize: 13 }}>{"Sesli AI Asistan"}</div>
+                      <div style={{ fontSize: 10, color: "#10B981" }}>{"● Arama devam ediyor..."}</div>
+                    </div>
+                  </div>
+                  {[
+                    { who: "customer", text: "Merhaba, yarın saat 3'te randevu almak istiyorum." },
+                    { who: "ai", text: "Tabii! Yarın saat 15:00 için randevunuzu oluşturdum. Onay SMS'i gönderildi." },
+                    { who: "customer", text: "Fiyat bilgisi alabilir miyim?" },
+                    { who: "ai", text: "Diş beyazlatma 3.500-5.000 TL aralığındadır. Muayene sonrası net fiyat belirlenir." },
+                  ].map((m, i) => (
+                    <div key={i} style={{ display: "flex", alignItems: "flex-start", gap: 8, marginBottom: 10 }}>
+                      <div style={{ width: 24, height: 24, borderRadius: 7, background: m.who === "ai" ? "rgba(139,92,246,0.2)" : "rgba(245,158,11,0.2)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 10, flexShrink: 0, marginTop: 2 }}>
+                        {m.who === "ai" ? "🤖" : "👤"}
+                      </div>
+                      <div style={{ background: m.who === "ai" ? "rgba(139,92,246,0.08)" : "rgba(245,158,11,0.08)", borderRadius: 12, padding: "8px 12px", flex: 1 }}>
+                        <div style={{ fontSize: 9, color: m.who === "ai" ? "#8B5CF6" : "#F59E0B", fontWeight: 600, marginBottom: 3 }}>{m.who === "ai" ? "AI SESLİ ASİSTAN" : "MÜŞTERİ"}</div>
+                        <div style={{ fontSize: 12, color: "rgba(255,255,255,0.7)", lineHeight: 1.5 }}>{m.text}</div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
+                {/* Özellik listesi */}
+                {[
+                  { icon: "🎙️", title: "Türkçe Sesli Yanıt", desc: "Doğal Türkçe ses ile müşterilerinize cevap verir" },
+                  { icon: "📅", title: "Otomatik Randevu", desc: "Sesli aramada randevu alır, takvime ekler" },
+                  { icon: "📝", title: "Arama Kaydı", desc: "Her arama metne dönüştürülür ve kaydedilir" },
+                  { icon: "⚡", title: "Anında Bildirim", desc: "Her arama sonrası size bildirim gelir" },
+                ].map(f => (
+                  <div key={f.title} style={{ display: "flex", alignItems: "center", gap: 14, marginBottom: 12 }}>
+                    <div style={{ width: 40, height: 40, borderRadius: 12, background: "rgba(139,92,246,0.1)", border: "1px solid rgba(139,92,246,0.2)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 18, flexShrink: 0 }}>{f.icon}</div>
+                    <div>
+                      <div style={{ fontSize: 14, fontWeight: 600, color: "#fff" }}>{f.title}</div>
+                      <div style={{ fontSize: 12, color: "rgba(255,255,255,0.4)" }}>{f.desc}</div>
+                    </div>
+                  </div>
+                ))}
+              </div>
             </div>
           </section>
 
