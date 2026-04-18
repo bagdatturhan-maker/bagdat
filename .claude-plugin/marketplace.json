@@ -1,1 +1,15 @@
 
+{
+  "plugins": [
+    {
+      "name": "marketing-skills",
+      "source": "./marketing-skill",
+      "description": "Marketing strategies"
+    },
+    {
+      "name": "business-growth",
+      "source": "./business-growth",
+      "description": "Sales systems"
+    }
+  ]
+}
